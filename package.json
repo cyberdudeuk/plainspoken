@@ -13,7 +13,7 @@
     "test": "node check.js && node tools/validate-teams.js"
   },
   "devDependencies": {
-    "ajv": "8.17.1",
+    "ajv": "8.20.0",
     "ajv-draft-04": "1.0.0",
     "ajv-formats": "3.0.1"
   }
