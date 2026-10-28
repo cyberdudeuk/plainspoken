@@ -1,5 +1,15 @@
 # Changelog
 
+## 2.6 (28 Oct 2026)
+- **Settings page** (gear button in the header), in five tabs: Look, Reading and motion, You, Practice, Data. Changes apply straight away and sync with your data.
+- **Look:** light, dark or match your device; high contrast (or follow your device's contrast setting); five colour themes (Evergreen, Ocean, Heather, Ember, Graphite); comfortable or wide layout on large screens; comfortable or compact spacing.
+- **Reading and motion:** text size from 90% to 150%; Atkinson Hyperlegible, Lexend or your device's font; relaxed text spacing; larger buttons; an extra-visible focus outline; reduce motion.
+- **You and Practice:** start view, live-listening language, coaching tone (balanced, gentle, direct), your own filler words, and the option to hide rewards while still saving practice.
+- **Accessibility:** skip link, focusable main region, screen-reader announcements, page titles per view, page language, arrow-key tab navigation, Windows high-contrast (forced colours) support, links underlined in high contrast.
+- **All screens:** side navigation rail on tablets in landscape and desktops, layouts for small phones, phones in landscape and printing. Tested at 320 to 1920 pixels wide at default and largest text.
+- Fixes: three light-mode colours were below 4.5:1 contrast against the page background (D21); long links widened the page on small phones at large text (D22).
+- Browser tests (U1, U2) now run in CI.
+
 ## 2.5 (28 Oct 2026)
 - **Skills** (new Practise tab): 13 short lessons, each with aims, key points, a practice task you can score, a three-question check with reasons, and a saved reflection. Six speaking skills join the core practice; seven **Working relationships** lessons (presence, noticing without assuming, feedback, hard-going conversations, saying no, joining and redirecting, calming a conflict) form a separate module.
 - Three new role-plays: saying no to a request, getting a word in, two colleagues disagree (15 in total).

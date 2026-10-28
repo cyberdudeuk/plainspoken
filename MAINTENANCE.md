@@ -32,3 +32,8 @@ How Plainspoken is operated and kept healthy. Owner: Emanuel Silva (@cyberdudeuk
 - No secrets in the repository. No analytics or tracking.
 - Pinned third-party code only; TeamsJS is shipped in `vendor/` and updated deliberately (update `TEAMS_JS` in `app.html`, the file, and THIRD_PARTY_NOTICES.md together).
 - Branch protection on `main` requires the Checks workflow to pass.
+
+
+## Committing changes
+
+Use `tools/commit.sh "Message"`. It commits your source changes first, then rebuilds `index.html` and commits it, so the page's build stamp names the source commit and the CI "index.html is current" step passes (defect D23). Push both commits together.

@@ -19,6 +19,7 @@ A phone-first speaking coach for anyone who speaks at work, with situations draw
 | Practise | Speak and score (pace, fillers, hedges, sentence length, signposts, acronyms), Claude coaching, 13 skill lessons with checks (6 speaking skills plus the Working relationships module), 15 role-plays with partner-card fallback, drills, 14 exercises |
 | Live | Cue card, timer, filler tap counter, "lost my thread", discreet mode, keep screen on, live listening where the browser allows |
 | Progress | Your form (this week against past weeks), 22 commendations, the 16-week spectrum, pace and filler trends, routine calendar, weekly checkpoints, situation log |
+| Settings | Light, dark or device colour mode; high contrast; five colour themes; layout width and spacing; text size 90 to 150%; three typefaces; relaxed text spacing; larger buttons; strong focus outline; reduce motion; start view, listening language, coaching tone, your own filler words; hide rewards; data export, import and erase |
 | Library | Introductions, frameworks, Facilitator mode (delivery plan, rubric, self-review, action plan), public sector rules, Success Profiles levels, inclusive speaking, microphone help, credits and licences, privacy, accessibility, about and build information, roadmap |
 
 ## Rewards
@@ -51,6 +52,7 @@ Pages published on claude.ai run in a sandboxed, cross-origin frame. A framed pa
 python3 build.py   # regenerate index.html from app.html
 node check.js      # verification checks; see CHECKS.md
 node tools/ui-smoke.js   # browser smoke test (needs Playwright)
+node tools/ui-matrix.js  # cross-device and settings matrix (needs Playwright)
 ```
 
 ## Project documents

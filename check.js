@@ -22,7 +22,7 @@ const used = [...new Set([...js.matchAll(/["'(](i-[a-z]+)["')]/g)].map(m => m[1]
 const missing = used.filter(u => !ids.includes(u));
 ok(missing.length === 0, "C9 every icon used has a symbol (" + (missing.join(",") || "none missing") + ")");
 ok(/© 2026 Emanuel Silva/.test(app), "C10 copyright notice present");
-ok(/prefers-reduced-motion: reduce\)"\)\.matches\) return/.test(app), "C11 celebration animation respects reduced motion");
+ok((/prefers-reduced-motion: reduce\)"\)\.matches\) return/.test(app) || (/function confetti\(\)\{[\s\S]{0,200}if \(reduceMotion\(\)\) return;/.test(app) && /function reduceMotion\(\)\{ return state\.settings\.motion==="reduce" \|\| mq\("\(prefers-reduced-motion: reduce\)"\); \}/.test(app))), "C11 celebration animation respects reduced motion (device setting or the app's own setting)");
 ok(/:root\[data-theme="dark"\]/.test(app) && /prefers-color-scheme: dark/.test(app), "C12 both themes defined");
 const visible = app.replace(/<script[\s\S]*?<\/script>/g, "") + js.replace(/\/\*[\s\S]*?\*\//g, "");
 const banned = ["Duolingo", "Lingot", "streak freeze", "Streak freeze", "Daily quest", "League", " XP"].filter(t => new RegExp(t.replace(/ /g, "[ ]")).test(visible.replace(/XP_RULES|weekXP|\bxp\b/g, "")));
@@ -74,4 +74,34 @@ ok(/"--format=%h", "--", "app.html"/.test(rd("build.py")) && /"--format=%cs", "-
 const metaCopy = (idx.match(/<meta name="copyright" content="([^"]*)"/) || [])[1] || "";
 ok(/PolyForm Noncommercial 1\.0\.0/.test(metaCopy) && /CC BY-NC 4\.0/.test(metaCopy) && !/Apache|MIT|CC BY 4\.0/.test(idx.slice(0, 4000)), "C37 page metadata states the current licences (defect D19)");
 ok(/gh release upload "\$GITHUB_REF_NAME" dist\/\*\.zip --clobber/.test(rd("repo-config/github/workflows/release.yml")), "C38 release workflow refreshes an existing release instead of failing when a tag is re-pushed (defect D20)");
+// v2.6: display settings, accessibility and all-screen layout
+const evalBlock = names => { const ctx = {}; let src = ""; for (const n of names){ const m = js.match(new RegExp("(?:const|function) " + n + "\\b[\\s\\S]*?\\n(?=const |function |let |/\\*)")); if (!m) return null; src += m[0] + "\n"; } try { vm.runInNewContext(src + names.map(n => `this.${n} = ${n};`).join(""), ctx); return ctx; } catch (e) { return null; } };
+const D = evalBlock(["pad", "localDate", "DEFAULT", "SKINS", "BASES", "SETTING_OPTS", "cleanSettings"]);
+const dataKeys = ["font","spacing","density","targets","focus","layout","rewards","motion"];
+const cssMissing = D ? dataKeys.flatMap(k => D.SETTING_OPTS[k].map(o => String(o[0])).filter(v => v !== String(D.DEFAULT().settings[k]) && !(k === "motion" && v === "system")).filter(v => !app.includes(`[data-${k}="${v}"]`)).map(v => k + "=" + v)) : ["(unparsed)"];
+ok(D && cssMissing.length === 0 && app.includes('[data-contrast="more"]'), "C39 every display option has a style rule (" + (cssMissing.join(", ") || "none missing") + ")");
+const lum = h => { const c = h.replace("#", "").match(/../g).map(x => parseInt(x, 16) / 255).map(v => v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4)); return 0.2126 * c[0] + 0.7152 * c[1] + 0.0722 * c[2]; };
+const ratio = (a, b) => { const [x, y] = [lum(a), lum(b)].sort((p, q) => q - p); return (x + 0.05) / (y + 0.05); };
+const cssVar = (block, k) => (block.match(new RegExp("--" + k + ":(#[0-9a-fA-F]{6})")) || [])[1];
+const lightBlock = (app.match(/:root\{\n  --bg:#eef2f1[\s\S]*?\n\}/) || [""])[0] + (app.match(/:root\{--amber:[^}]*\}/) || [""])[0];
+const darkBlock = (app.match(/:root\[data-theme="dark"\]\{\n  --bg[\s\S]*?\}/) || [""])[0] + (app.match(/:root\[data-theme="dark"\]\{--amber[^}]*\}/) || [""])[0];
+const lows = [];
+if (D) {
+  const modes = {l: ["light", 4.5], d: ["dark", 4.5], hl: ["hcLight", 7], hd: ["hcDark", 7]};
+  for (const [sk, S] of Object.entries(D.SKINS)) for (const [m, [b, need]] of Object.entries(modes)) { const B = D.BASES[b], A = S[m];
+    [["accent-ink on accent", A.ink, A.accent], ["accent on surface", A.accent, B.surface], ["accent on page", A.accent, B.bg], ["accent on sunk", A.accent, B.sunk], ["ink on accent-soft", B.ink, A.soft]].forEach(([n, f, g]) => { const r = ratio(f, g); if (r < need) lows.push(`${sk}/${b} ${n} ${r.toFixed(2)}`); }); }
+  for (const [b, need] of [["light", 4.5], ["dark", 4.5], ["hcLight", 7], ["hcDark", 7]]) { const B = D.BASES[b]; [["ink", B.ink], ["muted", B.muted]].forEach(([n, f]) => ["surface", "bg", "sunk"].forEach(g => { const r = ratio(f, B[g]); if (r < need) lows.push(`${b} ${n} on ${g} ${r.toFixed(2)}`); })); }
+  for (const [b, block] of [["light", lightBlock], ["dark", darkBlock]]) { const B = D.BASES[b]; ["good", "warn", "bad", "live", "amber", "indigo", "plum", "sky"].forEach(k => { const c = cssVar(block, k); if (!c) { lows.push(`${b} ${k} unparsed`); return; } ["surface", "bg"].forEach(g => { const r = ratio(c, B[g]); if (r < 4.5) lows.push(`${b} ${k} on ${g} ${r.toFixed(2)}`); }); }); }
+  for (const b of ["hcLight", "hcDark"]) { const B = D.BASES[b]; ["good", "warn", "bad", "live", "amber", "indigo", "plum", "sky"].forEach(k => ["surface", "bg"].forEach(g => { const r = ratio(B[k], B[g]); if (r < 7) lows.push(`${b} ${k} on ${g} ${r.toFixed(2)}`); })); }
+  if (cssVar(lightBlock, "bg") !== D.BASES.light.bg || cssVar(darkBlock, "bg") !== D.BASES.dark.bg) lows.push("CSS first-paint palette differs from BASES");
+} else lows.push("(unparsed)");
+ok(lows.length === 0, "C40 colour contrast: every skin in light, dark and both high-contrast modes meets WCAG AA (4.5:1), high contrast meets AAA (7:1), status colours included (defect D21) (" + (lows.slice(0, 6).join("; ") || "all pass") + ")");
+let cleanOk = false; try { const c = D.cleanSettings({...D.DEFAULT().settings, theme: "neon", skin: "x", textSize: "999", font: "<script>", lang: "xx", myFillers: "a".repeat(500)}); cleanOk = c.theme === "system" && c.skin === "evergreen" && c.textSize === 100 && c.font === "atkinson" && c.lang === "en-GB" && c.myFillers.length === 300; } catch (e) {}
+ok(cleanOk && /settings:cleanSettings\(\{\.\.\.d\.settings/.test(js), "C41 unknown or tampered settings (from imports or old versions) fall back to safe defaults");
+ok(/<a class="skip" href="#view"/.test(app) && /<main id="view" tabindex="-1">/.test(app) && /id="announce" class="sr-only" aria-live="polite"/.test(app) && /R\.lang = "en-GB"/.test(js) && /document\.title = \(names\[v\]/.test(js) && /role="tablist" aria-label="Settings sections"/.test(js) && /role="tabpanel" aria-labelledby/.test(js), "C42 accessibility plumbing: skip link, focusable main, live announcements, page language, per-view titles, labelled settings tabs");
+ok(/html\{font-size:var\(--fs,100%\)/.test(app) && /@media \(min-width:1024px\)\{\n  \.tabbar\{top:0;bottom:0/.test(app) && /@media \(max-height:500px\) and \(orientation:landscape\)/.test(app) && /@media \(max-width:360px\)/.test(app) && /@media \(forced-colors: active\)/.test(app) && /@media print\{/.test(app) && /@media \(max-width:440px\)\{\.top \.iconbtn \.lbl/.test(app), "C43 layouts for small phones, landscape, tablets and desktops (side rail), forced colours and print; text scales with the text-size setting");
+ok(/rec\.lang = state\.settings\.lang \|\| "en-GB"/.test(js) && /softFillers\(\)\.forEach/.test(js) && /HARD_FILLERS\.concat\(softFillers\(\)\)/.test(js) && (js.match(/state\.settings\.tone==="gentle"/g) || []).length === 2 && /state\.settings\.startView/.test(js) && /state\.settings\.rewards === "off"\)\{ celebQ\.length = 0/.test(js), "C44 personal settings take effect: listening language, own filler words, coaching tone, start view, rewards hidden");
+ok(/\.colophon,\.transcript,\.card p,\.card li,td\{overflow-wrap:anywhere\}/.test(app), "C45 long links and words wrap instead of widening the page at large text sizes (defect D22)");
+ok(/document\.addEventListener\("keydown", e => \{\n  const t = e\.target; if \(!t \|\| t\.getAttribute\("role"\) !== "tab"/.test(js) && /"ArrowLeft","ArrowRight","Home","End"/.test(js), "C46 arrow, Home and End keys move between tabs in every tab strip (ARIA tabs pattern)");
+ok(fs.existsSync(path.join(__dirname, "tools/commit.sh")) && /git reset -q index\.html[\s\S]*git commit -q "\$@"[\s\S]*python3 build\.py[\s\S]*git add index\.html/.test(rd("tools/commit.sh")) && /tools\/commit\.sh/.test(rd("MAINTENANCE.md")), "C47 sources are committed before index.html is rebuilt, so the build stamp names the source commit (defect D23)");
 process.exitCode = fail ? 1 : 0; console.log(fail ? `${fail} check(s) failed` : "All checks passed");

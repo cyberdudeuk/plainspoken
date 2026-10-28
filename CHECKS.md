@@ -42,7 +42,17 @@ Run `node check.js`. Every check is proven by a negative test (break the input a
 | C36 | Build stamps (commit and date) come from the last commit that changed `app.html`; CI checks out full history | **D18** |
 | C37 | Page metadata states the current licences | **D19** |
 | C38 | Release workflow refreshes an existing release when a tag is re-pushed | **D20** |
+| C39 | Every display option has a style rule | Requirement: display settings |
+| C40 | Contrast: every skin in light, dark and both high-contrast modes meets 4.5:1 (high contrast 7:1), including status and category colours | **D21** |
+| C41 | Unknown or tampered settings fall back to safe defaults | Review risk: imported or old data could carry invalid values |
+| C42 | Skip link, focusable main, live announcements, page language, per-view titles, labelled settings tabs | Requirement: accessibility |
+| C43 | Layouts for small phones, landscape, tablets and desktops, forced colours and print; text scales | Requirement: all screens and devices |
+| C44 | Personal settings take effect: listening language, own fillers, coaching tone, start view, rewards hidden | Requirement: personal configuration |
+| C45 | Long links and words wrap at large text sizes | **D22** |
+| C46 | Arrow, Home and End keys move between tabs | Requirement: keyboard access (ARIA tabs pattern) |
+| C47 | `tools/commit.sh` commits sources first, then rebuilds and commits index.html; MAINTENANCE documents it | **D23** |
 | U1 | Browser smoke test at 360px: 13 lessons listed, tabs fit, lesson locked until the check is answered, completion saved and rewarded, incomplete self-review refused, no sideways scroll, no script errors (`node tools/ui-smoke.js`, needs Playwright; skips without it) | **D16**; requirement: skills module |
+| U2 | Cross-device matrix: 8 screen sizes from 320 to 1920 wide at 100% and 150% text, 15 views each, no sideways scrolling; side rail on wide screens; all 20 colour combinations apply; settings survive reload; rewards hide; own fillers counted; skip link works; device dark mode and reduced motion followed; arrow keys move between tabs (`node tools/ui-matrix.js`) | **D16**, **D22**; requirement: all screens |
 | T1-T9 | Teams manifests and Copilot agent valid against Microsoft's schemas, versions aligned, tab points at Pages in Teams mode, media permission, instructions within limit, no affiliation wording, icons present (`tools/validate-teams.js`) | Microsoft 365 requirement |
 | L1 | Weekly: no broken source links; rules re-checked within 90 days; own-repo links excluded; bot-blocking sites reported as unverified (`tools/check-links.js`) | **D10**, **D11** |
 
@@ -69,4 +79,7 @@ Run `node check.js`. Every check is proven by a negative test (break the input a
 | D18 | v2.5 first CI run | The "index.html is up to date" CI step could never pass: the build stamped the current commit and today's date, so every commit or new day made the committed file stale | Build information tied to the moving HEAD and clock | Stamp the last commit and date that changed `app.html`; full-history checkout in CI | C36 |
 | D19 | v2.5 first CI run | The page's copyright metadata still named the old Apache-2.0 / CC BY 4.0 licences | Licence text in build.py was missed when the licence changed; C20 did not cover generated metadata | Metadata corrected; generated page now checked | C37 |
 | D20 | v2.5 first release | Re-pushing the v2.5 tag after a fix failed the release job ("a release with the same tag name already exists") | Release step only knew how to create | Upload with --clobber when the release exists | C38 |
+| D21 | v2.6 contrast audit | Light mode warning, amber and live colours were 3.7 to 4.4:1 against the page background, below WCAG AA for text | Colours checked against white cards only, not the tinted page | Darkened to 4.9:1 or better on every background; all palettes now computed in checks | C40 |
+| D22 | v2.6 device matrix | At 320px wide and 150% text, the footer's long repository link widened every page by 8px | Unbreakable URL in a grid child with min-width:auto | Long words and links wrap; grid children may shrink | C45, U2 |
+| D23 | v2.6 publish | Committing app.html and index.html together would leave index.html stamped with the previous source commit, so CI would flag it stale | The new commit hash cannot be known before committing | Two-step commit script: sources, then the rebuilt index.html | C47 |
 | D9 | v2.3 review | Permissive licences allowed commercial use the author does not want | Licence chosen before the commercial intent was stated | PolyForm Noncommercial 1.0.0 (code), CC BY-NC 4.0 (content), additional not-for-profit permission | C20, C21 |
