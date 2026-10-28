@@ -1,0 +1,20 @@
+{
+  "name": "plainspoken",
+  "version": "2.5.0",
+  "private": true,
+  "description": "Plainspoken: a phone-first speaking coach for work",
+  "license": "SEE LICENSE IN LICENSE",
+  "scripts": {
+    "build": "python3 build.py",
+    "check": "node check.js",
+    "validate:teams": "node tools/validate-teams.js",
+    "package:teams": "python3 tools/package-teams.py",
+    "links": "node tools/check-links.js",
+    "test": "node check.js && node tools/validate-teams.js"
+  },
+  "devDependencies": {
+    "ajv": "8.17.1",
+    "ajv-draft-04": "1.0.0",
+    "ajv-formats": "3.0.1"
+  }
+}

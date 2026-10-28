@@ -1,0 +1,16 @@
+name: Accessibility problem
+description: Something is hard or impossible to use with your setup
+labels:
+- accessibility
+body:
+- type: input
+  id: setup
+  attributes:
+    label: Your setup
+    description: Assistive technology, browser and device
+- type: textarea
+  id: problem
+  attributes:
+    label: What's the barrier?
+  validations:
+    required: true

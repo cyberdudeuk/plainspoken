@@ -1,0 +1,7 @@
+TEAM
+  Product owner and author: Emanuel Silva
+  Built with: Claude (Anthropic)
+
+SITE
+  Standards: HTML, CSS, JavaScript; WCAG 2.2 AA (aim)
+  Fonts: Bricolage Grotesque, Atkinson Hyperlegible, JetBrains Mono

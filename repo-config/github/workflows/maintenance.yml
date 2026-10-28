@@ -1,0 +1,33 @@
+# Weekly health check: broken source links and stale public-sector guidance.
+# Opens (or updates) one tracking issue when action is needed.
+name: Weekly maintenance
+on:
+  schedule:
+    - cron: "17 6 * * 1"
+  workflow_dispatch:
+permissions:
+  contents: read
+  issues: write
+jobs:
+  health:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - id: links
+        run: node tools/check-links.js | tee links.txt
+        continue-on-error: true
+      - name: Check the live site responds
+        id: site
+        run: curl -fsS -o /dev/null https://cyberdudeuk.github.io/plainspoken/
+        continue-on-error: true
+      - name: Open or update the maintenance issue
+        if: steps.links.outcome == 'failure' || steps.site.outcome == 'failure'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          { echo "Automated weekly check found something to fix."; echo; echo '```'; cat links.txt; echo '```'; echo; echo "Live site check: ${{ steps.site.outcome }}"; echo; echo "Runbook: MAINTENANCE.md"; } > body.md
+          n=$(gh issue list --label maintenance --state open --json number --jq '.[0].number')
+          if [ -n "$n" ]; then gh issue comment "$n" --body-file body.md; else gh issue create --title "Weekly maintenance: action needed" --label maintenance --body-file body.md; fi

@@ -1,0 +1,24 @@
+name: Bug report
+description: Something isn't working
+labels:
+- bug
+body:
+- type: input
+  id: where
+  attributes:
+    label: Where
+    description: Claude version, GitHub Pages, Teams, Outlook or Microsoft 365 app; device and browser
+  validations:
+    required: true
+- type: textarea
+  id: what
+  attributes:
+    label: What happened
+    description: Steps, what you expected and what you saw
+  validations:
+    required: true
+- type: input
+  id: version
+  attributes:
+    label: Version
+    description: Library > About shows it

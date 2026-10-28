@@ -1,0 +1,49 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/teams/v1.22/MicrosoftTeams.schema.json",
+  "manifestVersion": "1.22",
+  "version": "2.5.0",
+  "id": "cf1bc571-e844-4390-8a45-36aa34bfd535",
+  "developer": {
+    "name": "Emanuel Silva",
+    "websiteUrl": "https://github.com/cyberdudeuk/plainspoken",
+    "privacyUrl": "https://github.com/cyberdudeuk/plainspoken/blob/main/PRIVACY.md",
+    "termsOfUseUrl": "https://github.com/cyberdudeuk/plainspoken/blob/main/TERMS.md"
+  },
+  "name": {
+    "short": "Plainspoken",
+    "full": "Plainspoken: speaking coach for work"
+  },
+  "description": {
+    "short": "Daily speaking practice, event prep, role-play and a live cue card.",
+    "full": "Plainspoken helps you speak clearly at work. Run a 20-minute daily routine, prep any meeting, webinar, panel, briefing or interview with a one-page brief and introduction, score your answers for pace, fillers and structure, rehearse with role-play, and deliver with a live cue card and filler counter. Built with civil service and public sector situations in mind; an independent personal project, free for personal and not-for-profit use."
+  },
+  "icons": {
+    "color": "color.png",
+    "outline": "outline.png"
+  },
+  "accentColor": "#0B6F5A",
+  "staticTabs": [
+    {
+      "entityId": "plainspoken",
+      "name": "Plainspoken",
+      "contentUrl": "https://cyberdudeuk.github.io/plainspoken/?host=teams#today",
+      "websiteUrl": "https://cyberdudeuk.github.io/plainspoken/#today",
+      "scopes": [
+        "personal"
+      ]
+    },
+    {
+      "entityId": "about",
+      "scopes": [
+        "personal"
+      ]
+    }
+  ],
+  "permissions": [],
+  "devicePermissions": [
+    "media"
+  ],
+  "validDomains": [
+    "cyberdudeuk.github.io"
+  ]
+}

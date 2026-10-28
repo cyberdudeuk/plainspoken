@@ -1,0 +1,19 @@
+{
+  "name": "Plainspoken",
+  "short_name": "Plainspoken",
+  "description": "A daily speaking coach for public servants: routine, event prep, scoring, role-play and a live cue card.",
+  "start_url": "./#today",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#eef2f1",
+  "theme_color": "#0b6f5a",
+  "lang": "en-GB",
+  "categories": ["education", "productivity"],
+  "icons": [
+    {"src": "assets/icon-192.png", "sizes": "192x192", "type": "image/png"},
+    {"src": "assets/icon-512.png", "sizes": "512x512", "type": "image/png"},
+    {"src": "assets/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable"},
+    {"src": "favicon.svg", "sizes": "any", "type": "image/svg+xml"}
+  ]
+}

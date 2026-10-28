@@ -1,0 +1,11 @@
+name: Idea or improvement
+description: Suggest a feature or change (see ROADMAP.md first)
+labels:
+- idea
+body:
+- type: textarea
+  id: need
+  attributes:
+    label: What do you need to do, and why?
+  validations:
+    required: true
