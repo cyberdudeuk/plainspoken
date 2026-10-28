@@ -73,4 +73,5 @@ ok(qPos.length === 39 && qPos.every(x => x >= 0) && posMax <= 39 * 0.4, "C35 qui
 ok(/"--format=%h", "--", "app.html"/.test(rd("build.py")) && /"--format=%cs", "--", "app.html"/.test(rd("build.py")) && !/rev-parse", "--short", "HEAD"|date=\{datetime\.date\.today/.test(rd("build.py")) && /fetch-depth: 0/.test(rd("repo-config/github/workflows/check.yml")), "C36 build stamps come from the last commit that changed app.html, so CI rebuilds match (defect D18)");
 const metaCopy = (idx.match(/<meta name="copyright" content="([^"]*)"/) || [])[1] || "";
 ok(/PolyForm Noncommercial 1\.0\.0/.test(metaCopy) && /CC BY-NC 4\.0/.test(metaCopy) && !/Apache|MIT|CC BY 4\.0/.test(idx.slice(0, 4000)), "C37 page metadata states the current licences (defect D19)");
+ok(/gh release upload "\$GITHUB_REF_NAME" dist\/\*\.zip --clobber/.test(rd("repo-config/github/workflows/release.yml")), "C38 release workflow refreshes an existing release instead of failing when a tag is re-pushed (defect D20)");
 process.exitCode = fail ? 1 : 0; console.log(fail ? `${fail} check(s) failed` : "All checks passed");

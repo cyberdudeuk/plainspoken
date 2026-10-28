@@ -41,6 +41,7 @@ Run `node check.js`. Every check is proven by a negative test (break the input a
 | C35 | Quick-check answers spread across positions A to D | **D17** |
 | C36 | Build stamps (commit and date) come from the last commit that changed `app.html`; CI checks out full history | **D18** |
 | C37 | Page metadata states the current licences | **D19** |
+| C38 | Release workflow refreshes an existing release when a tag is re-pushed | **D20** |
 | U1 | Browser smoke test at 360px: 13 lessons listed, tabs fit, lesson locked until the check is answered, completion saved and rewarded, incomplete self-review refused, no sideways scroll, no script errors (`node tools/ui-smoke.js`, needs Playwright; skips without it) | **D16**; requirement: skills module |
 | T1-T9 | Teams manifests and Copilot agent valid against Microsoft's schemas, versions aligned, tab points at Pages in Teams mode, media permission, instructions within limit, no affiliation wording, icons present (`tools/validate-teams.js`) | Microsoft 365 requirement |
 | L1 | Weekly: no broken source links; rules re-checked within 90 days; own-repo links excluded; bot-blocking sites reported as unverified (`tools/check-links.js`) | **D10**, **D11** |
@@ -67,4 +68,5 @@ Run `node check.js`. Every check is proven by a negative test (break the input a
 | D17 | v2.5 adversarial review | 27 of the 39 source questions had B as the answer, so a learner could pass by always choosing B | Source answer key written without position balancing | Options shown in a fixed, per-question shuffled order (answers now spread; most common position 13 of 39) | C35 |
 | D18 | v2.5 first CI run | The "index.html is up to date" CI step could never pass: the build stamped the current commit and today's date, so every commit or new day made the committed file stale | Build information tied to the moving HEAD and clock | Stamp the last commit and date that changed `app.html`; full-history checkout in CI | C36 |
 | D19 | v2.5 first CI run | The page's copyright metadata still named the old Apache-2.0 / CC BY 4.0 licences | Licence text in build.py was missed when the licence changed; C20 did not cover generated metadata | Metadata corrected; generated page now checked | C37 |
+| D20 | v2.5 first release | Re-pushing the v2.5 tag after a fix failed the release job ("a release with the same tag name already exists") | Release step only knew how to create | Upload with --clobber when the release exists | C38 |
 | D9 | v2.3 review | Permissive licences allowed commercial use the author does not want | Licence chosen before the commercial intent was stated | PolyForm Noncommercial 1.0.0 (code), CC BY-NC 4.0 (content), additional not-for-profit permission | C20, C21 |
