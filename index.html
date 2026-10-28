@@ -5,8 +5,8 @@
 <meta name="copyright" content="© 2026 Emanuel Silva. Code PolyForm Noncommercial 1.0.0; content CC BY-NC 4.0.">
 <link rel="license" href="LICENSE">
 <meta name="application-name" content="Plainspoken">
-<meta name="generator" content="build.py; app v2.5; commit 3a185b2">
-<meta name="build" content="version=2.5; date=2026-10-28; commit=3a185b2">
+<meta name="generator" content="build.py; app v2.6; commit fc7aad7">
+<meta name="build" content="version=2.6; date=2026-10-28; commit=fc7aad7">
 <meta name="color-scheme" content="light dark">
 <meta name="theme-color" content="#0b6f5a" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0d1513" media="(prefers-color-scheme: dark)">
@@ -34,7 +34,7 @@
 :root{
   --bg:#eef2f1; --surface:#ffffff; --sunk:#e3e9e7; --ink:#13201c; --muted:#56665f; --line:#cfd9d5;
   --accent:#0b6f5a; --accent-ink:#ffffff; --accent-soft:#d5ece5;
-  --live:#c8402b; --live-soft:#f8ddd7; --good:#2c7a4b; --warn:#a56a12; --bad:#b2362a;
+  --live:#b73a26; --live-soft:#f8ddd7; --good:#2c7a4b; --warn:#8f5a0c; --bad:#b2362a;
   --display:"Bricolage Grotesque", "Avenir Next", "Segoe UI", system-ui, sans-serif;
   --body:"Atkinson Hyperlegible", "Segoe UI", system-ui, sans-serif;
   --mono:"JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
@@ -49,7 +49,8 @@
   --accent:#43c9a5; --accent-ink:#06231b; --accent-soft:#183a31;
   --live:#ff7a63; --live-soft:#3b1d17; --good:#5fcf8c; --warn:#e7b04d; --bad:#ff7a6b; color-scheme:dark}
 *{box-sizing:border-box}
-body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.5}
+html{font-size:var(--fs,100%);-webkit-text-size-adjust:100%;text-size-adjust:100%}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:1rem;line-height:var(--lh,1.5);letter-spacing:var(--ls,normal);word-spacing:var(--ws,normal)}
 body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
 .app{max-width:760px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 calc(96px + env(safe-area-inset-bottom,0px))}
 h1,h2,h3{font-family:var(--display);text-wrap:balance;margin:0;line-height:1.15}
@@ -153,7 +154,7 @@ details[open] summary{margin-bottom:8px}
 .spark{width:100%;height:120px;display:block}
 .status li{display:flex;gap:8px;align-items:baseline}
 /* Secondary palette: category colours that break the monochrome */
-:root{--amber:#b26d0c;--indigo:#3d55b8;--plum:#8b4a8e;--sky:#1b739e;--amber-soft:#f6e7cf;--indigo-soft:#e1e6f8;--plum-soft:#f2e3f2;--sky-soft:#dbedf6}
+:root{--amber:#975a06;--indigo:#3d55b8;--plum:#8b4a8e;--sky:#1b739e;--amber-soft:#f6e7cf;--indigo-soft:#e1e6f8;--plum-soft:#f2e3f2;--sky-soft:#dbedf6}
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--amber:#f0b257;--indigo:#93a5ff;--plum:#dba0dd;--sky:#72c6ec;--amber-soft:#3a2c14;--indigo-soft:#1f2747;--plum-soft:#3a2238;--sky-soft:#13303d}}
 :root[data-theme="dark"]{--amber:#f0b257;--indigo:#93a5ff;--plum:#dba0dd;--sky:#72c6ec;--amber-soft:#3a2c14;--indigo-soft:#1f2747;--plum-soft:#3a2238;--sky-soft:#13303d}
 .ic{width:20px;height:20px;flex:none;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;vertical-align:-4px}
@@ -206,6 +207,72 @@ details[open] summary{margin-bottom:8px}
 .callout{border-radius:12px;padding:12px 14px;background:var(--sky-soft);display:grid;gap:6px}
 .callout.amber{background:var(--amber-soft)}
 .ex .row .btn{min-height:36px}
+
+/* ---------- v2.6 display settings, accessibility and all-screen layout ---------- */
+.skip{position:absolute;left:-9999px;top:8px;z-index:60;background:var(--surface);color:var(--ink);padding:10px 14px;border:2px solid var(--accent);border-radius:10px;font-weight:700}
+.skip:focus{left:16px}
+.sr-only{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.top .acts{display:flex;gap:6px;flex:none}
+.seg button{white-space:nowrap}.seg{scroll-snap-type:x proximity;scrollbar-width:thin}.seg button{scroll-snap-align:start}
+.colophon>*,.card>*,.hero>*{min-width:0}.colophon,.transcript,.card p,.card li,td{overflow-wrap:anywhere}
+:root[data-spacing="relaxed"]{--lh:1.8;--ls:.06em;--ws:.14em}
+:root[data-spacing="relaxed"] p,:root[data-spacing="relaxed"] li{margin-bottom:.5em}
+:root[data-font="lexend"]{--body:"Lexend","Segoe UI",system-ui,sans-serif;--display:"Lexend","Segoe UI",system-ui,sans-serif}
+:root[data-font="system"]{--body:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;--display:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+:root[data-density="compact"] main{gap:10px}
+:root[data-density="compact"] .card{padding:12px;gap:8px}
+:root[data-density="compact"] .hero{padding:14px;gap:10px}
+:root[data-targets="large"] .btn,:root[data-targets="large"] .btn.sm,:root[data-targets="large"] .iconbtn,:root[data-targets="large"] .chip,:root[data-targets="large"] .seg button,:root[data-targets="large"] input,:root[data-targets="large"] select{min-height:48px}
+:root[data-targets="large"] .chip{padding:10px 16px}
+:root[data-targets="large"] .tab{min-height:64px}
+:root[data-focus="strong"] :focus-visible{outline:4px solid var(--ink)!important;outline-offset:3px!important;box-shadow:0 0 0 8px var(--accent)!important}
+:root[data-motion="reduce"] *,:root[data-motion="reduce"] *::before,:root[data-motion="reduce"] *::after{transition:none!important;animation:none!important;scroll-behavior:auto!important}
+:root[data-rewards="off"] .rw{display:none!important}
+:root[data-contrast="more"] .card,:root[data-contrast="more"] .hero,:root[data-contrast="more"] .btn,:root[data-contrast="more"] .chip,:root[data-contrast="more"] input,:root[data-contrast="more"] select,:root[data-contrast="more"] textarea{border-width:2px}
+:root[data-contrast="more"] .hero{background:var(--surface)}
+:root[data-contrast="more"] .hero .art{display:none}
+:root[data-contrast="more"] a{text-decoration:underline;text-underline-offset:.15em}
+.optgrid{display:grid;gap:14px}
+.opt{display:grid;gap:6px}
+.opt>b{font-size:.95rem}
+.opt .row{gap:6px}
+.swatch{display:inline-block;width:14px;height:14px;border-radius:50%;background:var(--sw);border:1px solid var(--line);margin-right:6px;vertical-align:-2px}
+.preview{border:1px dashed var(--line);border-radius:12px;padding:12px;display:grid;gap:8px}
+/* Small phones */
+@media (max-width:360px){.app{padding-left:max(10px,env(safe-area-inset-left,0px));padding-right:max(10px,env(safe-area-inset-right,0px))}.card{padding:12px}.tab{font-size:.66rem}.brand small:first-of-type{display:none}}
+@media (max-width:440px){.top .iconbtn .lbl{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}.top .iconbtn{padding:8px}}
+/* Phones in landscape and short screens */
+@media (max-height:500px) and (orientation:landscape){.top{position:static}.tab{min-height:44px;padding:4px 2px;font-size:.66rem}.tab svg{width:20px;height:20px}.app{padding-bottom:calc(64px + env(safe-area-inset-bottom,0px))}}
+/* Tablets and desktops: side rail instead of the bottom bar */
+@media (min-width:1024px){
+  .tabbar{top:0;bottom:0;right:auto;width:96px;border-top:0;border-right:1px solid var(--line);display:flex;align-items:center;padding:16px 8px}
+  .tabbar .inner{grid-template-columns:1fr;gap:8px;width:100%}
+  .tab{min-height:64px;border-radius:12px}
+  .tab[aria-current="page"]{background:var(--accent-soft)}
+  .app{max-width:860px;padding-left:24px;padding-right:24px;padding-bottom:48px;margin-left:max(120px,calc((100vw - 860px)/2))}
+  .toast{bottom:24px}
+}
+:root[data-layout="wide"] .app{max-width:1200px}
+@media (min-width:1024px){:root[data-layout="wide"] .app{margin-left:max(120px,calc((100vw - 1200px)/2))}}
+@media (min-width:1400px){:root[data-layout="wide"] .badges{grid-template-columns:repeat(auto-fill,minmax(120px,1fr))}}
+/* Windows high contrast and other forced-colour modes */
+@media (forced-colors: active){
+  .btn,.chip,.iconbtn,.seg button,.tab,.card,.hero,.quest,.block,.metric,.pill{border:1px solid CanvasText}
+  .tab[aria-current="page"],.chip[aria-pressed="true"],.seg button[aria-selected="true"]{outline:3px solid Highlight}
+  .xpbar i,.bar i,.qbar i{background:Highlight;forced-color-adjust:none}
+  .hero .art,#confetti{display:none}
+  .ic,.tab svg{stroke:CanvasText}
+}
+/* Printing: cue cards, briefs and lessons print cleanly */
+@media print{
+  .tabbar,.top .acts,#confetti,.toast,.seg,.btn,.skip,.modal{display:none!important}
+  :root{--bg:#fff;--surface:#fff;--ink:#000;--muted:#333;--line:#999}
+  body{background:#fff;color:#000}
+  .app{max-width:none;margin:0;padding:0}
+  .top{position:static}
+  .card,.hero,.cue{break-inside:avoid;border:1px solid #999}
+  .hero .art{display:none}
+}
 @media (prefers-reduced-motion: reduce){*{transition:none!important;animation:none!important}}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.45}}
 .pulse{animation:pulse 1.6s ease-in-out infinite}
@@ -254,16 +321,22 @@ details[open] summary{margin-bottom:8px}
 <symbol id="i-hand" viewBox="0 0 24 24"><path d="M8 13V6.5a1.5 1.5 0 0 1 3 0V11M11 11V5a1.5 1.5 0 0 1 3 0v6M14 11V6.5a1.5 1.5 0 0 1 3 0V14a6 6 0 0 1-6 6h-1a5 5 0 0 1-4-2l-2.6-3.6a1.5 1.5 0 0 1 2.4-1.8L8 14"/></symbol><symbol id="i-scale" viewBox="0 0 24 24"><path d="M12 3v18M7 21h10M5 7h14M5 7l-3 7a3 3 0 0 0 6 0zM19 7l-3 7a3 3 0 0 0 6 0z"/></symbol>
 </defs></svg>
 <canvas id="confetti" hidden></canvas>
+<a class="skip" href="#view" data-act="skipMain">Skip to main content</a>
 <div class="app" id="app">
   <header class="top">
     <div class="brand">
       <svg class="mark" viewBox="0 0 64 64" role="img" aria-label="Plainspoken logo"><rect width="64" height="64" rx="16" fill="var(--accent)"/><path d="M14 16h36a6 6 0 0 1 6 6v18a6 6 0 0 1-6 6H28l-10 8v-8h-4a6 6 0 0 1-6-6V22a6 6 0 0 1 6-6z" fill="var(--surface)"/><rect x="20" y="32" width="6" height="8" rx="3" fill="var(--accent)"/><rect x="29" y="26" width="6" height="14" rx="3" fill="var(--indigo)"/><rect x="38" y="21" width="6" height="19" rx="3" fill="var(--amber)"/></svg>
       <div><h1>Plainspoken</h1><small style="font-family:var(--body)">Speak plainly. Land the key line.</small><small id="phaseLine">Week 1 of 16</small></div>
     </div>
-    <button class="iconbtn" id="libBtn" data-go="library" aria-pressed="false">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2z"/><path d="M4 21V5"/></svg>Library</button>
+    <div class="acts">
+    <button class="iconbtn" id="setBtn" data-go="settings" aria-pressed="false" aria-label="Settings">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg><span class="lbl">Settings</span></button>
+    <button class="iconbtn" id="libBtn" data-go="library" aria-pressed="false" aria-label="Library">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2z"/><path d="M4 21V5"/></svg><span class="lbl">Library</span></button>
+    </div>
   </header>
-  <main id="view" aria-live="polite"></main>
+  <main id="view" tabindex="-1"></main>
+  <div id="announce" class="sr-only" aria-live="polite"></div>
   <footer class="colophon" id="colophon">
     <p><b>Disclaimer.</b> A personal development tool, not official guidance, legal or clinical advice. If your employer has policies on external speaking, media or evidence, they take precedence.</p>
     <p><b>Disclosure.</b> Built with Claude (Anthropic) on 28 October 2026 from the sources listed in the Library. Coaching and role-play replies come from Claude when you ask for them; check facts before relying on them.</p>
@@ -273,7 +346,7 @@ details[open] summary{margin-bottom:8px}
     <p><b>Independent project.</b> Developed by Emanuel Silva in a personal capacity, outside working hours. Not affiliated with, endorsed by or produced on behalf of any government, public body or other organisation named in the app. Sources are credited in Library → Credits and licences. QR Code is a registered trademark of DENSO WAVE INCORPORATED.</p>
     <div class="codes">
       <div id="qr" aria-label="QR code linking to the full written plan" role="img"></div>
-      <div><svg id="barcode" role="img" aria-label="Barcode: Plainspoken version 2.5"></svg><div>Plainspoken v2.5 · build 28 Oct 2026 · QR opens the full written plan</div></div>
+      <div><svg id="barcode" role="img" aria-label="Barcode: Plainspoken version 2.6"></svg><div>Plainspoken v2.6 · build 28 Oct 2026 · QR opens the full written plan</div></div>
     </div>
   </footer>
 </div>
@@ -293,9 +366,9 @@ details[open] summary{margin-bottom:8px}
 const DOC_URL = "https://claude.ai/artifact/97sLuwHx6tT5Bwp4skDiWL";
 const RULES_CHECKED = "2026-10-28";
 const LINKS_CHECKED = "2026-10-28";
-const VERSION = "2.5";
+const VERSION = "2.6";
 const APP = "Plainspoken";
-const BUILD = {version:"2.5", date:"2026-10-28", commit:"3a185b2", runtime:"claude.ai artifact contract 0.2.92 / GitHub Pages"};
+const BUILD = {version:"2.6", date:"2026-10-28", commit:"fc7aad7", runtime:"claude.ai artifact contract 0.2.92 / GitHub Pages"};
 const REPO_URL = "https://github.com/cyberdudeuk/plainspoken";
 const PAGES_URL = "https://cyberdudeuk.github.io/plainspoken/";
 const CLAUDE_URL = "https://claude.ai/artifact/22Zr4rKqNhjk2QwcUdbXV9";
@@ -584,6 +657,71 @@ const SOURCES = [
 
 /* ---------- helpers ---------- */
 const $ = (s, r=document) => r.querySelector(s);
+/* ---------- display settings: themes, skins, reading and motion ---------- */
+const SKINS = {
+  evergreen:{name:"Evergreen", l:{accent:"#0b6f5a",ink:"#ffffff",soft:"#d5ece5"}, d:{accent:"#43c9a5",ink:"#06231b",soft:"#183a31"}, hl:{accent:"#00513f",ink:"#ffffff",soft:"#e0f0eb"}, hd:{accent:"#5fe3bf",ink:"#000000",soft:"#0d2a22"}},
+  ocean:{name:"Ocean", l:{accent:"#1f5fa8",ink:"#ffffff",soft:"#dae6f5"}, d:{accent:"#7db4ff",ink:"#071a33",soft:"#16294a"}, hl:{accent:"#0b3f7a",ink:"#ffffff",soft:"#e1ebf7"}, hd:{accent:"#9cc7ff",ink:"#000000",soft:"#0c1d36"}},
+  heather:{name:"Heather", l:{accent:"#7a3e8f",ink:"#ffffff",soft:"#efe0f4"}, d:{accent:"#d9a2ec",ink:"#2a0d35",soft:"#36203f"}, hl:{accent:"#5a2470",ink:"#ffffff",soft:"#f2e6f6"}, hd:{accent:"#e8bff5",ink:"#000000",soft:"#2a1533"}},
+  ember:{name:"Ember", l:{accent:"#a8441c",ink:"#ffffff",soft:"#f6e0d5"}, d:{accent:"#ff9d73",ink:"#2e0f03",soft:"#43231a"}, hl:{accent:"#7d2c0b",ink:"#ffffff",soft:"#f8e7df"}, hd:{accent:"#ffb795",ink:"#000000",soft:"#33170c"}},
+  graphite:{name:"Graphite", l:{accent:"#3a4550",ink:"#ffffff",soft:"#e1e5e9"}, d:{accent:"#c3cdd6",ink:"#141a20",soft:"#2a3138"}, hl:{accent:"#1f262d",ink:"#ffffff",soft:"#e8ebee"}, hd:{accent:"#dfe5ea",ink:"#000000",soft:"#1e2328"}}
+};
+const BASES = {
+  light:{bg:"#eef2f1",surface:"#ffffff",sunk:"#e3e9e7",ink:"#13201c",muted:"#56665f",line:"#cfd9d5"},
+  dark:{bg:"#0d1513",surface:"#15201d",sunk:"#1c2a26",ink:"#e4eeea",muted:"#9bb0a8",line:"#2a3a35"},
+  hcLight:{bg:"#ffffff",surface:"#ffffff",sunk:"#f0f0f0",ink:"#000000",muted:"#262626",line:"#000000",good:"#005a1f",warn:"#6b4100",bad:"#9b0000",live:"#9b0000","live-soft":"#fbe3e3",amber:"#6b4100",indigo:"#1f2f99",plum:"#6b1f70",sky:"#004a73","amber-soft":"#f5ead8","indigo-soft":"#e3e6f7","plum-soft":"#f3e3f4","sky-soft":"#dcecf5"},
+  hcDark:{bg:"#000000",surface:"#000000",sunk:"#1a1a1a",ink:"#ffffff",muted:"#e0e0e0",line:"#ffffff",good:"#7dffa8",warn:"#ffd166",bad:"#ff9e96",live:"#ff9e96","live-soft":"#2a0b08",amber:"#ffd166",indigo:"#c2cbff",plum:"#f3c2f7",sky:"#a8e2ff","amber-soft":"#2a2108","indigo-soft":"#141a3a","plum-soft":"#2a102c","sky-soft":"#0a2230"}
+};
+const HC_KEYS = ["good","warn","bad","live","live-soft","amber","indigo","plum","sky","amber-soft","indigo-soft","plum-soft","sky-soft"];
+const SETTING_OPTS = {
+  theme:[["system","Match my device"],["light","Light"],["dark","Dark"]],
+  contrast:[["system","Match my device"],["normal","Standard"],["more","High contrast"]],
+  skin:Object.entries(SKINS).map(([k,v])=>[k,v.name]),
+  layout:[["auto","Comfortable reading width"],["wide","Wide"]],
+  density:[["comfortable","Comfortable"],["compact","Compact"]],
+  textSize:[[90,"Small"],[100,"Default"],[115,"Large"],[130,"Larger"],[150,"Largest"]],
+  font:[["atkinson","Atkinson Hyperlegible"],["lexend","Lexend"],["system","My device's font"]],
+  spacing:[["normal","Standard"],["relaxed","Relaxed: taller lines, wider letters and words"]],
+  targets:[["standard","Standard"],["large","Larger buttons (48px)"]],
+  focus:[["standard","Standard"],["strong","Extra-visible"]],
+  motion:[["system","Match my device"],["reduce","Reduce motion"]],
+  rewards:[["on","Show resonance, cues and commendations"],["off","Hide them (practice still counts)"]],
+  startView:[["today","Today"],["prep","Prep"],["practise","Practise"],["live","Live"],["progress","Progress"]],
+  lang:[["en-GB","English (UK)"],["en-IE","English (Ireland)"],["en-US","English (US)"],["en-AU","English (Australia)"],["en-IN","English (India)"],["cy-GB","Cymraeg (where the browser supports it)"]],
+  tone:[["balanced","Balanced"],["gentle","Gentle: lead with what worked"],["direct","Direct: straight to the fixes"]]
+};
+function cleanSettings(S){
+  Object.entries(SETTING_OPTS).forEach(([k,opts]) => { const ok = opts.some(o => String(o[0]) === String(S[k])); if (!ok) S[k] = DEFAULT().settings[k]; else if (k==="textSize") S[k] = +S[k]; });
+  S.myFillers = String(S.myFillers||"").slice(0,300);
+  return S;
+}
+let TEAMS_THEME = "";
+const mq = q => { try { return window.matchMedia ? matchMedia(q).matches : false; } catch(e){ return false; } };
+function isDark(){ const t = state.settings.theme; if (t==="dark") return true; if (t==="light") return false; if (TEAMS_THEME) return TEAMS_THEME !== "default"; return mq("(prefers-color-scheme: dark)"); }
+function isHC(){ const c = state.settings.contrast; return c==="more" || (c==="system" && (mq("(prefers-contrast: more)") || TEAMS_THEME==="contrast")); }
+function reduceMotion(){ return state.settings.motion==="reduce" || mq("(prefers-reduced-motion: reduce)"); }
+function myFillers(){ return String(state.settings.myFillers||"").toLowerCase().split(",").map(x=>x.trim().replace(/[^a-z' -]/g,"")).filter(x=>x && x.length<=30).slice(0,12); }
+function softFillers(){ return [...new Set(SOFT_FILLERS.concat(myFillers()))]; }
+function applyDisplay(){
+  const S = state.settings, R = document.documentElement, dark = isDark(), hc = isHC();
+  const sk = SKINS[S.skin] || SKINS.evergreen, base = hc ? (dark ? BASES.hcDark : BASES.hcLight) : (dark ? BASES.dark : BASES.light);
+  const acc = hc ? (dark ? sk.hd : sk.hl) : (dark ? sk.d : sk.l);
+  const was = R.getAttribute("data-theme") + R.getAttribute("data-contrast") + R.style.getPropertyValue("--accent");
+  R.lang = "en-GB";
+  R.setAttribute("data-theme", dark ? "dark" : "light");
+  R.setAttribute("data-contrast", hc ? "more" : "normal");
+  ["bg","surface","sunk","ink","muted","line"].forEach(k => R.style.setProperty("--"+k, base[k]));
+  R.style.setProperty("--accent", acc.accent); R.style.setProperty("--accent-ink", acc.ink); R.style.setProperty("--accent-soft", acc.soft);
+  HC_KEYS.forEach(k => hc ? R.style.setProperty("--"+k, base[k]) : R.style.removeProperty("--"+k));
+  R.style.setProperty("--fs", (S.textSize||100) + "%");
+  ["font","spacing","density","targets","focus","layout","rewards"].forEach(k => R.setAttribute("data-"+k, S[k]));
+  R.setAttribute("data-motion", reduceMotion() ? "reduce" : "system");
+  R.style.colorScheme = dark ? "dark" : "light";
+  let m = document.getElementById("tcolor"); if (!m){ m = document.createElement("meta"); m.name = "theme-color"; m.id = "tcolor"; document.head.appendChild(m); } m.content = base.bg;
+  if (S.font==="lexend" && !document.getElementById("lexendFont")){ const l = document.createElement("link"); l.id = "lexendFont"; l.rel = "stylesheet"; l.href = "https://fonts.googleapis.com/css2?family=Lexend:wght@400;600;700&display=swap"; document.head.appendChild(l); }
+  if (was !== R.getAttribute("data-theme") + R.getAttribute("data-contrast") + R.style.getPropertyValue("--accent")) drawCodes();
+}
+function announce(t){ const a = document.getElementById("announce"); if (a){ a.textContent = ""; setTimeout(() => { a.textContent = t; }, 30); } }
+
 const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const pad = n => String(n).padStart(2,"0");
 const localDate = (d=new Date()) => `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;
@@ -595,12 +733,12 @@ const round1 = n => Math.round(n*10)/10;
 function toast(msg){ const t=document.createElement("div"); t.className="toast"; t.setAttribute("role","status"); t.textContent=msg; document.body.appendChild(t); setTimeout(()=>t.remove(),2400); }
 
 /* ---------- state and storage ---------- */
-const DEFAULT = () => ({v:2, settings:{name:"",role:"",team:"",grade:"4",start:localDate(),paceLow:140,paceHigh:160,email:"",goal:50,weekdaysOnly:true,celebrate:true}, routine:{}, sessions:[], briefs:[], log:[], checkpoints:[], xp:0, days:{}, badges:{}, frozen:{}, freezes:0, bestStreak:0, freezeAwardedAt:0, counters:{}, skills:{}, rubric:[]});
+const DEFAULT = () => ({v:2, settings:{name:"",role:"",team:"",grade:"4",start:localDate(),paceLow:140,paceHigh:160,email:"",goal:50,weekdaysOnly:true,celebrate:true,theme:"system",contrast:"system",skin:"evergreen",layout:"auto",density:"comfortable",textSize:100,font:"atkinson",spacing:"normal",targets:"standard",focus:"standard",motion:"system",rewards:"on",startView:"today",lang:"en-GB",tone:"balanced",myFillers:""}, routine:{}, sessions:[], briefs:[], log:[], checkpoints:[], xp:0, days:{}, badges:{}, frozen:{}, freezes:0, bestStreak:0, freezeAwardedAt:0, counters:{}, skills:{}, rubric:[]});
 let state = DEFAULT();
 const store = {mode:"browser", ref:null, writing:false, pending:false, timer:null, status:{db:"checking",sample:"not yet asked",mic:"not yet tried",downloads:"checking"}};
 function loadLocal(){ try { const raw = localStorage.getItem("artic-coach-v1"); if (raw) return JSON.parse(raw); } catch(e){} return null; }
 function saveLocal(){ try { localStorage.setItem("artic-coach-v1", JSON.stringify(state)); } catch(e){} }
-function normalise(s){ const d = DEFAULT(); if (!s || typeof s !== "object") return d; const o = (k) => (s[k] && typeof s[k]==="object" && !Array.isArray(s[k])) ? s[k] : {}; return {...d, ...s, v:2, settings:{...d.settings, ...(s.settings||{})}, routine:o("routine"), sessions:Array.isArray(s.sessions)?s.sessions:[], briefs:Array.isArray(s.briefs)?s.briefs:[], log:Array.isArray(s.log)?s.log:[], checkpoints:Array.isArray(s.checkpoints)?s.checkpoints:[], xp:+s.xp||0, days:o("days"), badges:o("badges"), frozen:o("frozen"), counters:o("counters"), freezes:Math.min(2,+s.freezes||0), bestStreak:+s.bestStreak||0, freezeAwardedAt:+s.freezeAwardedAt||0, skills:o("skills"), rubric:Array.isArray(s.rubric)?s.rubric:[]}; }
+function normalise(s){ const d = DEFAULT(); if (!s || typeof s !== "object") return d; const o = (k) => (s[k] && typeof s[k]==="object" && !Array.isArray(s[k])) ? s[k] : {}; return {...d, ...s, v:2, settings:cleanSettings({...d.settings, ...(s.settings||{})}), routine:o("routine"), sessions:Array.isArray(s.sessions)?s.sessions:[], briefs:Array.isArray(s.briefs)?s.briefs:[], log:Array.isArray(s.log)?s.log:[], checkpoints:Array.isArray(s.checkpoints)?s.checkpoints:[], xp:+s.xp||0, days:o("days"), badges:o("badges"), frozen:o("frozen"), counters:o("counters"), freezes:Math.min(2,+s.freezes||0), bestStreak:+s.bestStreak||0, freezeAwardedAt:+s.freezeAwardedAt||0, skills:o("skills"), rubric:Array.isArray(s.rubric)?s.rubric:[]}; }
 function save(){
   if (state.sessions.length > 300) state.sessions = state.sessions.slice(-300);
   saveLocal();
@@ -662,7 +800,7 @@ function analyse(text, seconds){
   const lower = " " + clean.toLowerCase() + " ";
   const hard = {}, soft = {}, hedge = {};
   HARD_FILLERS.forEach(p => { const c = countPhrase(lower,p); if (c) hard[p]=c; });
-  SOFT_FILLERS.forEach(p => { const c = countPhrase(lower,p); if (c) soft[p]=c; });
+  softFillers().forEach(p => { const c = countPhrase(lower,p); if (c) soft[p]=c; });
   HEDGES.forEach(p => { const c = countPhrase(lower,p); if (c) hedge[p]=c; });
   const sum = o => Object.values(o).reduce((a,b)=>a+b,0);
   const sentences = clean.split(/[.!?]+/).map(s=>s.trim()).filter(Boolean);
@@ -681,7 +819,7 @@ function analyse(text, seconds){
 function highlight(text){
   let h = esc(text);
   const wrap = (list, cls) => list.slice().sort((a,b)=>b.length-a.length).forEach(p => { const re = new RegExp("(^|[^A-Za-z'>])(" + p.replace(/ /g,"\\s+") + ")(?=$|[^A-Za-z'])","gi"); h = h.replace(re, `$1<mark class="${cls}">$2</mark>`); });
-  wrap(HARD_FILLERS.concat(SOFT_FILLERS),"f"); wrap(HEDGES,"h");
+  wrap(HARD_FILLERS.concat(softFillers()),"f"); wrap(HEDGES,"h");
   h = h.replace(/\b([A-Z]{2,6}s?)\b/g, (m) => ["I","OK","UK"].includes(m) ? m : `<mark class="j">${m}</mark>`);
   return h;
 }
@@ -693,7 +831,7 @@ function makeListener(onText, onState){
   let rec, active = false, finalText = "";
   const start = () => {
     try {
-      rec = new SR(); rec.continuous = true; rec.interimResults = true; rec.lang = "en-GB";
+      rec = new SR(); rec.continuous = true; rec.interimResults = true; rec.lang = state.settings.lang || "en-GB";
       rec.onresult = e => { let interim = ""; for (let i=e.resultIndex;i<e.results.length;i++){ const t = e.results[i][0].transcript; if (e.results[i].isFinal) finalText += t.trim()+" "; else interim += t; } onText(finalText, interim); };
       rec.onerror = e => { const blocked = ["not-allowed","service-not-allowed","audio-capture"].includes(e.error); store.status.mic = blocked ? "blocked in this view: use keyboard dictation" : "error: "+e.error; if (blocked){ active=false; onState("blocked"); } };
       rec.onend = () => { if (active){ try { rec.start(); } catch(e){} } else onState("stopped"); };
@@ -707,7 +845,7 @@ async function keepAwake(on){ try { if (on && navigator.wakeLock){ wakeLock = aw
 
 /* ---------- ui state ---------- */
 const ui = {
-  view:"today", practiseTab:"speak", prepId:null, libOpen:null,
+  view:"today", setTab:"look", practiseTab:"speak", prepId:null, libOpen:null,
   rt:{running:false, block:0, left:0, timer:null},
   sp:{prompt:pick(TOPICS), target:60, running:false, start:0, elapsed:0, timer:null, text:"", interim:"", result:null, coach:null, coaching:false, listener:null, listening:false, ctx:"practice", briefId:""},
   rp:{id:null, setup:"", grade:"", msgs:[], busy:false, debrief:null, offlineIdx:0, mode:"ai", err:""},
@@ -718,7 +856,7 @@ const ui = {
 };
 
 /* ---------- routing ---------- */
-const VIEWS = ["today","prep","practise","live","progress","library"];
+const VIEWS = ["today","prep","practise","live","progress","library","settings"];
 function go(v){ if (!VIEWS.includes(v)) v="today"; if (location.hash !== "#"+v) history.replaceState(null,"","#"+v); ui.view=v; render(); window.scrollTo(0,0); }
 window.addEventListener("hashchange", () => { const v = location.hash.slice(1); if (VIEWS.includes(v) && v!==ui.view){ ui.view=v; render(); } });
 
@@ -801,7 +939,7 @@ function checkQuests(){
 function award(n, why, quiet){
   const before = levelOf(state.xp), d = dstat(), wasMet = metDay(localDate());
   state.xp += n; d.xp = (d.xp||0) + n;
-  if (!quiet) toast(`+${n} resonance · ${why}`);
+  if (!quiet && state.settings.rewards !== "off") toast(`+${n} resonance · ${why}`);
   if (!wasMet && metDay(localDate())){
     const st = streak(); state.bestStreak = Math.max(state.bestStreak, st);
     if (st>0 && st%7===0 && state.freezeAwardedAt!==st && state.freezes<2){ state.freezes++; state.freezeAwardedAt = st; }
@@ -819,7 +957,7 @@ const celebQ = [];
 function celebrate(c){ celebQ.push(c); if (celebQ.length===1) setTimeout(showCeleb, 250); }
 function showCeleb(){
   const c = celebQ[0]; if (!c) return;
-  if (state.settings.celebrate === false){ celebQ.length = 0; return; }
+  if (state.settings.celebrate === false || state.settings.rewards === "off"){ celebQ.length = 0; return; }
   const m = document.createElement("div"); m.className="modal"; m.setAttribute("role","dialog"); m.setAttribute("aria-modal","true"); m.setAttribute("aria-label", c.title);
   m.innerHTML = `<div class="box">${medal(c.col, c.icon)}<h2>${esc(c.title)}</h2><p class="muted">${esc(c.text)}</p><button class="btn primary" id="celebOk">Keep going</button></div>`;
   document.body.appendChild(m); confetti(); const b = m.querySelector("#celebOk"); b.focus();
@@ -828,7 +966,7 @@ function showCeleb(){
 }
 function confetti(){
   /* Sound ripples: concentric rings expanding from the medal, in the palette colours */
-  if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  if (reduceMotion()) return;
   const cv = $("#confetti"); cv.hidden = false; const ctx = cv.getContext("2d"); const W = cv.width = innerWidth, H = cv.height = innerHeight;
   const cs = getComputedStyle(document.documentElement); const cols = ["--accent","--amber","--indigo","--plum","--sky"].map(v=>cs.getPropertyValue(v).trim()||"#0b6f5a");
   const cx = W/2, cy = H/2 - 60, t0 = performance.now(), D = 1600;
@@ -901,16 +1039,16 @@ function vToday(){
   return `
   <section class="hero">${art(w+3)}
     <div class="row between"><span class="eyebrow">Week ${w}${w<=16?" of 16":""} · ${esc(p.name)}</span><span class="pill">${esc(p.framework)}</span></div>
-    <div class="row" style="gap:16px;flex-wrap:nowrap;align-items:center">${goalRing(d.xp||0, goal)}
+    <div class="row rw" style="gap:16px;flex-wrap:nowrap;align-items:center">${goalRing(d.xp||0, goal)}
       <div style="display:grid;gap:6px;min-width:0;flex:1">
         <div class="statrow"><span class="stat flame" title="Rhythm: days in a row">${ic("i-metronome")}${streak()}</span><span class="stat shieldc" title="Rest notes: protect your rhythm on a missed day">${ic("i-rest")}${state.freezes}</span><span class="stat starc" title="Total resonance">${ic("i-reso")}${state.xp}</span></div>
         <b>Stage ${lv+1} \u00b7 ${esc(LEVELS[lv][1])}</b>
         <div class="xpbar" role="img" aria-label="${Math.round(lvPct*100)}% to next stage"><i style="width:${Math.round(lvPct*100)}%"></i></div>
         <span class="small muted">${next ? `${next[0]-state.xp} resonance to ${esc(next[1])}` : "Top stage reached"}</span>
       </div></div>
-    <p class="small">${metDay(localDate()) ? "<b>Daily goal met.</b> Anything more is a bonus." : `<b>${goal-(d.xp||0)} resonance</b> to today's goal and your rhythm.`} ${esc(p.aim)}.</p>
+    <p class="small rw">${metDay(localDate()) ? "<b>Daily goal met.</b> Anything more is a bonus." : `<b>${goal-(d.xp||0)} resonance</b> to today's goal and your rhythm.`} ${esc(p.aim)}.</p>
   </section>
-  <section class="card">
+  <section class="card rw">
     <div class="row between"><h3 class="sit">${ic("i-target")} Daily cues</h3><span class="pill ${qs.every(q=>q.done)?"good":""}">${qs.filter(q=>q.done).length}/3</span></div>
     ${qs.map(q=>`<div class="quest ${q.done?"done":""}"><span class="qi">${ic(q.done?"i-check":q.icon)}</span><div style="min-width:0"><b class="small">${esc(q.label)}</b><div class="qbar"><i style="width:${Math.round(q.progress/q.goal*100)}%"></i></div></div><span class="pill ${q.done?"good":""}">+${q.xp}</span></div>`).join("")}
     <p class="small muted">Finish all three for a 20 resonance bonus. New cues every day.</p>
@@ -1227,9 +1365,9 @@ function vProgress(){
   const recent = ss.slice(-5);
   const avg = k => recent.length ? round1(recent.reduce((a,s)=>a+(s[k]||0),0)/recent.length) : null;
   return `
-  <section class="hero slim">${art(5)}<h2>Progress</h2><div class="statrow"><span class="stat flame">${ic("i-metronome")}${streak()} <span class="small muted" style="font-family:var(--body)">best ${state.bestStreak}</span></span><span class="stat starc">${ic("i-reso")}${state.xp}</span><span class="stat">${ic("i-trophy")}${Object.keys(state.badges).length}/${BADGES.length}</span></div></section>
+  <section class="hero slim">${art(5)}<h2>Progress</h2><div class="statrow rw"><span class="stat flame">${ic("i-metronome")}${streak()} <span class="small muted" style="font-family:var(--body)">best ${state.bestStreak}</span></span><span class="stat starc">${ic("i-reso")}${state.xp}</span><span class="stat">${ic("i-trophy")}${Object.keys(state.badges).length}/${BADGES.length}</span></div></section>
   <section class="card"><h3 class="sit">${ic("i-bolt")} Your form</h3>${league()}</section>
-  <section class="card"><h3 class="sit">${ic("i-trophy")} Commendations</h3><div class="badges">${BADGES.map(b=>{ const got = state.badges[b.id]; return `<div class="badge ${got?"":"locked"}" title="${esc(b.desc)}">${medal(b.col,b.icon)}<b>${esc(b.name)}</b><span class="muted">${got?fmtDate(got):esc(b.desc)}</span></div>`; }).join("")}</div></section>
+  <section class="card rw"><h3 class="sit">${ic("i-trophy")} Commendations</h3><div class="badges">${BADGES.map(b=>{ const got = state.badges[b.id]; return `<div class="badge ${got?"":"locked"}" title="${esc(b.desc)}">${medal(b.col,b.icon)}<b>${esc(b.name)}</b><span class="muted">${got?fmtDate(got):esc(b.desc)}</span></div>`; }).join("")}</div></section>
   <section class="card"><h3 class="sit">${ic("i-route")} Your spectrum</h3>${pathView(true)}</section>
   <section class="card"><h3>Scores</h3>
     <div class="grid2">
@@ -1283,6 +1421,46 @@ function heat(){
       h += `<i class="${dayDone(k)?"on":dayPart(k)?"part":""} ${k===localDate()?"today":""}" title="${k}"></i>`; }
   }
   return h + `</div><p class="small muted">Full square: all five blocks done. Half: some.</p>`;
+}
+
+function optRow(k, label, hint){
+  const S = state.settings;
+  return `<div class="opt" role="group" aria-labelledby="opt-${k}"><b id="opt-${k}">${esc(label)}</b>${hint?`<span class="small muted">${esc(hint)}</span>`:""}<div class="row">${SETTING_OPTS[k].map(([v,l])=>`<button class="chip" aria-pressed="${String(S[k])===String(v)}" data-act="setOpt" data-k="${k}" data-v="${v}">${k==="skin"?`<span class="swatch" style="--sw:${SKINS[v][isDark()?"d":"l"].accent}"></span>`:""}${esc(l)}</button>`).join("")}</div></div>`;
+}
+function optSelect(k, label, hint){
+  const S = state.settings;
+  return `<label>${esc(label)}${hint?`<span class="hint">${esc(hint)}</span>`:""}<select data-setsel="${k}">${SETTING_OPTS[k].map(([v,l])=>`<option value="${v}" ${String(S[k])===String(v)?"selected":""}>${esc(l)}</option>`).join("")}</select></label>`;
+}
+function vSettings(){
+  const S = state.settings, t = ui.setTab;
+  const tabs = [["look","Look"],["read","Reading and motion"],["you","You"],["practice","Practice"],["data","Data"]];
+  const seg = `<div class="seg" role="tablist" aria-label="Settings sections">${tabs.map(([k,l])=>`<button role="tab" id="st-${k}" aria-selected="${t===k}" aria-controls="setPanel" data-act="setTab" data-k="${k}">${l}</button>`).join("")}</div>`;
+  let body = "";
+  if (t==="look") body = `<div class="optgrid">${optRow("theme","Colour mode","Dark mode is easier on the eyes in low light. “Match my device” follows your phone or computer.")}${optRow("contrast","Contrast","High contrast uses black and white with stronger colours, thicker borders and underlined links.")}${optRow("skin","Colour theme")}${optRow("layout","Width on large screens","Applies on tablets and computers.")}${optRow("density","Spacing between items")}</div>
+    <div class="preview" aria-label="Preview"><b>Preview</b><p>Plain words, one idea per sentence. <a href="#settings" data-act="noop">A link</a>.</p><div class="row"><button class="btn sm primary" data-act="noop">Primary</button><button class="btn sm" data-act="noop">Secondary</button><span class="pill good">Good</span><span class="pill warn">Check</span><span class="pill bad">Fix</span></div></div>`;
+  else if (t==="read") body = `<div class="optgrid">${optRow("textSize","Text size","Also works with your browser's zoom and your device's text size.")}${optRow("font","Typeface","Atkinson Hyperlegible and Lexend are designed for readability. Lexend loads from Google Fonts when chosen.")}${optRow("spacing","Text spacing","Wider spacing can help with dyslexia and low vision.")}${optRow("targets","Button size","Larger buttons are easier with a tremor, gloves or a moving bus.")}${optRow("focus","Keyboard focus outline")}${optRow("motion","Motion","Reduce motion turns off animations, including celebrations.")}</div>`;
+  else if (t==="you") body = `<div class="grid2">
+    <label>Your name<input id="s-name" data-sbind="name" value="${esc(S.name)}" autocomplete="name"></label>
+    <label>Role<input id="s-role" data-sbind="role" value="${esc(S.role)}" placeholder="e.g. Data Management Lead" autocomplete="organization-title"></label>
+    <label>Team<input id="s-team" data-sbind="team" value="${esc(S.team)}"></label>
+    <label>Contact (for the footer)<input id="s-email" data-sbind="email" value="${esc(S.email)}" autocomplete="email"></label>
+    ${optSelect("startView","Open the app on")}
+    ${optSelect("lang","Live listening language","For speech recognition only. Welsh support depends on your browser.")}
+    ${optSelect("tone","Coaching tone","How Claude words its feedback in coaching and debriefs.")}
+    <label>My filler words<span class="hint">Your own habits to count, separated by commas (up to 12), e.g. right, so yeah, to be fair</span><input id="s-fill" data-sbind="myFillers" value="${esc(S.myFillers)}" maxlength="300"></label></div>`;
+  else if (t==="practice") body = `<div class="grid2">
+    <label>Plan start date<input id="s-start" type="date" data-sbind="start" value="${esc(S.start)}"></label>
+    <label>Pace band low (wpm)<input id="s-lo" type="number" inputmode="numeric" data-sbind="paceLow" value="${S.paceLow}"></label>
+    <label>Pace band high (wpm)<input id="s-hi" type="number" inputmode="numeric" data-sbind="paceHigh" value="${S.paceHigh}"></label>
+    <label>Daily goal<select id="s-goal" data-sbind="goal">${GOALS.map(g=>`<option value="${g[0]}" ${+S.goal===g[0]?"selected":""}>${g[1]}: ${g[0]} resonance a day</option>`).join("")}</select></label></div>
+    ${optRow("rewards","Rewards","Some people find streaks and points motivating; others find them a distraction. Your practice is still saved either way.")}
+    <label class="check"><input type="checkbox" id="s-wk" data-act="toggleSetting" data-k="weekdaysOnly" ${S.weekdaysOnly?"checked":""}><span>Weekends don't break my rhythm</span></label>
+    <label class="check"><input type="checkbox" id="s-cel" data-act="toggleSetting" data-k="celebrate" ${S.celebrate!==false?"checked":""}><span>Celebrations (sound ripples)</span></label>
+    <p class="small muted">Set your pace band from your own baseline. Practitioner guides often cite 140–160 wpm for presentations; measured conversation runs faster.</p>`;
+  else body = `<p class="small">Your data stays with you: ${esc(store.status.db)}.</p>
+    <div class="row"><button class="btn sm" data-act="exportData">Download my data</button><label class="btn sm" style="display:inline-flex;align-items:center;cursor:pointer">Import data<input type="file" id="importFile" accept="application/json,.json" class="sr-only"></label></div>
+    <div class="row"><button class="btn sm ghost" data-act="resetDisplay">Reset look and reading settings</button><button class="btn sm ghost" data-act="resetData">${ui.confirmReset?"Tap again to erase everything":"Erase all my data"}</button></div>`;
+  return `<section class="hero slim">${art(41)}<h2>Settings</h2><p class="small muted">Changes apply straight away and are saved with your data.</p></section>${seg}<section class="card" id="setPanel" role="tabpanel" aria-labelledby="st-${t}">${body}</section>`;
 }
 
 function vLibrary(){
@@ -1368,23 +1546,11 @@ When I will review it:</div><div class="row"><button class="btn sm" data-act="co
     <tr><td class="num">5</td><td>Deputy Director</td><td>Communication strategies; conviction in tough negotiations</td></tr>
     <tr><td class="num">6</td><td>Director, DG</td><td>Honest, impartial, objective communication; influence across and beyond the Civil Service</td></tr></tbody></table></div><p class="small muted">Levels and grades: <a href="https://mail.civilservant.org.uk/library/2018-success_profiles/CS_Behaviours_2018.pdf" target="_blank" rel="noopener">Civil Service Behaviours (Success Profiles, 2018; archive copy)</a>. Descriptions paraphrased and shortened; check the current version your recruiter uses.</p>`)}
   ${sec("inclusive","Inclusive speaking",`<p>Clarity, not one “correct” voice: accents need no fixing. If you stammer, skip any fluency or filler-counting drill that doesn't suit you; useful adjustments include questions in advance, extra time, notes, written answers, co-presenting and typed contributions in chat (STAMMA). Ask for adjustments at interview when you apply. STAMMA helpline: 0808 802 0002.</p>`)}
-  ${sec("you","Settings",`<div class="grid2">
-    <label>Your name<input id="s-name" data-sbind="name" value="${esc(S.name)}"></label>
-    <label>Role<input id="s-role" data-sbind="role" value="${esc(S.role)}" placeholder="e.g. Data Management Lead"></label>
-    <label>Team<input id="s-team" data-sbind="team" value="${esc(S.team)}"></label>
-    <label>Contact (for the footer)<input id="s-email" data-sbind="email" value="${esc(S.email)}"></label>
-    <label>Plan start date<input id="s-start" type="date" data-sbind="start" value="${esc(S.start)}"></label>
-    <label>Pace band low (wpm)<input id="s-lo" type="number" data-sbind="paceLow" value="${S.paceLow}"></label>
-    <label>Pace band high (wpm)<input id="s-hi" type="number" data-sbind="paceHigh" value="${S.paceHigh}"></label>
-    <label>Daily goal<select id="s-goal" data-sbind="goal">${GOALS.map(g=>`<option value="${g[0]}" ${+S.goal===g[0]?"selected":""}>${g[1]}: ${g[0]} resonance a day</option>`).join("")}</select></label></div>
-    <label class="check"><input type="checkbox" id="s-wk" data-act="toggleSetting" data-k="weekdaysOnly" ${S.weekdaysOnly?"checked":""}><span>Weekends don't break my rhythm</span></label>
-    <label class="check"><input type="checkbox" id="s-cel" data-act="toggleSetting" data-k="celebrate" ${S.celebrate!==false?"checked":""}><span>Celebrations (sound ripples)</span></label>
-    <p class="small muted">Set your pace band from your own baseline. Practitioner guides often cite 140–160 wpm for presentations; measured conversation runs faster.</p>
-    <div class="row"><button class="btn sm" data-act="exportData">Download my data</button><label class="btn sm" style="display:inline-flex;align-items:center;cursor:pointer">Import data<input type="file" id="importFile" accept="application/json,.json" hidden></label><button class="btn sm ghost" data-act="resetData">${ui.confirmReset?"Tap again to erase everything":"Erase all my data"}</button></div>`)}
+  ${sec("you","Settings",`<p>Settings now have their own page: look, reading and motion, you, practice and data.</p><div class="row"><button class="btn sm primary" data-go="settings">Open Settings</button></div>`)}
   ${sec("status","Health check",healthCheck())}
   ${sec("credits","Credits and licences",`<p class="small">This app summarises and links to its sources rather than reproducing them. Each is credited on the terms of its licence.</p><ul class="clean small">${CREDITS.map(c=>`<li><b>${c[2]?`<a href="${c[2]}" target="_blank" rel="noopener">${esc(c[0])}</a>`:esc(c[0])}</b><br><span class="muted">${esc(c[1])}</span></li>`).join("")}</ul>`)}
   ${sec("privacy","Privacy",`<ul class="clean small"><li><b>What's stored:</b> your settings, briefs, transcripts you type or dictate, scores and logs.</li><li><b>Where:</b> in the Claude version, in a private store only you can read, plus this browser; in the GitHub Pages version, only in this browser. Nothing is sent to the app's author.</li><li><b>Claude features:</b> when you ask for coaching, a review or role-play, the relevant text is sent to Claude to produce a reply.</li><li><b>Live listening:</b> in Chrome and Edge, audio goes to the browser maker's speech service.</li><li><b>Don't enter</b> confidential or commercially sensitive information, or personal data about other people.</li><li><b>No cookies, analytics or tracking.</b> Erase everything any time in Settings.</li></ul>`)}
-  ${sec("access","Accessibility",`<p class="small">Built to aim for WCAG 2.2 AA: keyboard focus is visible, colour is never the only signal, text uses a typeface designed for legibility, motion respects your reduced-motion setting, and charts carry text alternatives. Known gaps: it has not been tested with a full range of screen readers, and dictation depends on your device. Report problems as an issue in the repository.</p>`)}
+  ${sec("access","Accessibility",`<p class="small">Built to aim for WCAG 2.2 AA (high contrast aims for AAA colour contrast). In <a href="#settings" data-go="settings">Settings</a> you can choose light, dark or high contrast, five colour themes, text size up to 150%, a choice of three typefaces, relaxed text spacing, larger buttons, an extra-visible focus outline and reduced motion. There is a skip link, tab strips work with arrow keys, and Windows high-contrast mode is supported. It works from small phones to wide desktops, portrait or landscape. Colour is never the only signal. Known gaps: not yet tested with a full range of screen readers or voice-control software, and dictation depends on your device. Report problems as an issue in the repository.</p>`)}
   ${sec("about","About",`<p><b>${APP} v${VERSION}</b>. © 2026 Emanuel Silva. Code: PolyForm Noncommercial License 1.0.0. Text, exercises and artwork: CC BY-NC 4.0. Free for personal use and for charities, not-for-profit organisations and not-for-profit purposes; any commercial use needs written permission from the author. The Plainspoken name and logo are not licensed for reuse. Developed in a personal capacity, outside working hours; independent of any employer or public body.</p>
     <ul class="clean small"><li>Source code and issues: <a href="${REPO_URL}" target="_blank" rel="noopener">${REPO_URL.replace("https://","")}</a></li>
     <li>Live-listening version: <a href="${PAGES_URL}" target="_blank" rel="noopener">${PAGES_URL.replace("https://","")}</a></li>
@@ -1420,10 +1586,12 @@ function healthCheck(){
 /* ---------- render ---------- */
 function render(){
   const v = ui.view;
-  const html = v==="today"?vToday():v==="prep"?vPrep():v==="practise"?vPractise():v==="live"?vLive():v==="progress"?vProgress():vLibrary();
+  applyDisplay();
+  const html = v==="today"?vToday():v==="prep"?vPrep():v==="practise"?vPractise():v==="live"?vLive():v==="progress"?vProgress():v==="settings"?vSettings():vLibrary();
   $("#view").innerHTML = html;
   document.querySelectorAll(".tab").forEach(t => t.setAttribute("aria-current", t.dataset.go===v ? "page" : "false"));
-  $("#libBtn").setAttribute("aria-pressed", v==="library");
+  $("#libBtn").setAttribute("aria-pressed", v==="library"); $("#setBtn").setAttribute("aria-pressed", v==="settings");
+  const names = {today:"Today",prep:"Prep",practise:"Practise",live:"Live",progress:"Progress",library:"Library",settings:"Settings"}; document.title = (names[v]||"Today") + " · Plainspoken";
   const p = phase(); $("#phaseLine").textContent = `Week ${weekNo()}${weekNo()<=16?" of 16":""} · ${p.name}`;
   $("#ownerLine").textContent = state.settings.name ? `Owner: ${state.settings.name}${state.settings.role?", "+state.settings.role:""}${state.settings.email?" · "+state.settings.email:""}` : "Owner: add your name and contact in Library → Settings.";
 }
@@ -1474,6 +1642,7 @@ Situation: ${brief ? (SITUATIONS[brief.type]?.label + " - " + (brief.title||""))
 ${brief?.keyLine ? `Their intended key line: "${brief.keyLine}".` : ""}
 Measured: ${r.words} words, ${r.wpm ?? "n/a"} wpm (their band ${state.settings.paceLow}-${state.settings.paceHigh}), ${r.fillers} fillers, ${r.hedges} hedges, average sentence ${r.avgLen} words, acronyms: ${r.acronyms.join(", ")||"none"}.
 The transcript came from dictation, which often drops fillers and punctuation; do not penalise punctuation.
+${state.settings.tone==="gentle"?"Tone: warm and encouraging; lead with what worked before the fixes.":state.settings.tone==="direct"?"Tone: brisk and direct; keep praise to one line and go straight to the fixes.":"Tone: balanced and constructive."}
 Rules: Use only facts in the transcript; never add new facts or figures to the tighter version. Plain UK English. Flag any party-political view, personal view on government policy, advice given to ministers, or unauthorised disclosure, since civil servants must stay impartial.
 Return JSON only: {"scores":{"clarity":{"score":1-5,"why":"<12 words"},"structure":{...},"concision":{...},"impact":{...}},"strengths":["",""],"fixes":[{"issue":"","quote":"short quote from transcript","try":"specific instruction"}],"tighter":"their answer rewritten, answer-first, under ${Math.max(40,Math.round((r.words||80)*0.7))} words","flags":["only if any"],"drill":"one drill from: Tell-Me Game, Elevator ladder, Playback, Hot seat, Three-sentence story, Jargon buster, Emphasis shift, pause swap"}
 Give exactly three fixes.
@@ -1504,7 +1673,7 @@ async function rpDebrief(){
   const rp = ui.rp, s = ROLEPLAYS[rp.id]; const sample = await getSample(); if (!sample) return;
   rp.busy = true; render();
   const transcript = rp.msgs.slice(1).map(m => (m.role==="assistant" ? s.title.toUpperCase() : "CIVIL SERVANT") + ": " + m.content).join("\n");
-  const prompt = `You are a speaking coach. Debrief this role-play (${s.title}) for a UK civil servant${rp.grade?` at ${rp.grade}`:""}. Judge only the civil servant's answers.
+  const prompt = `You are a speaking coach. Debrief this role-play (${s.title}) for a UK civil servant${rp.grade?` at ${rp.grade}`:""}. Judge only the civil servant's answers. ${state.settings.tone==="gentle"?"Tone: warm and encouraging; lead with what worked before the fixes.":state.settings.tone==="direct"?"Tone: brisk and direct; keep praise to one line and go straight to the fixes.":"Tone: balanced and constructive."}
 Consider: answer-first structure, evidence and examples (STAR where relevant), clarity and plain language, composure, staying within remit and political impartiality.
 Return JSON only: {"overall":"2 sentences","scores":{"structure":1-5,"evidence":1-5,"clarity":1-5,"composure":1-5},"strengths":["",""],"improve":[{"moment":"short quote or question","try":"what to do instead"}],"model":{"question":"the hardest question asked","answer":"a stronger answer under 120 words using only facts they gave"}}
 Give two or three items in improve.
@@ -1544,6 +1713,14 @@ function startListener(target){
   }
   holder.listener.reset(); holder.listener.start();
 }
+/* Arrow keys move between tabs in any tab strip (ARIA tabs pattern) */
+document.addEventListener("keydown", e => {
+  const t = e.target; if (!t || t.getAttribute("role") !== "tab" || !["ArrowLeft","ArrowRight","Home","End"].includes(e.key)) return;
+  const tabs = [...t.closest('[role="tablist"]').querySelectorAll('[role="tab"]')]; let i = tabs.indexOf(t);
+  i = e.key==="Home" ? 0 : e.key==="End" ? tabs.length-1 : (i + (e.key==="ArrowRight" ? 1 : -1) + tabs.length) % tabs.length;
+  e.preventDefault(); const id = tabs[i].dataset.k, act = tabs[i].dataset.act; tabs[i].click();
+  const again = document.querySelector(`[role="tab"][data-act="${act}"][data-k="${id}"]`); if (again){ again.focus(); again.scrollIntoView({block:"nearest", inline:"nearest"}); }
+});
 document.addEventListener("click", e => {
   const g = e.target.closest("[data-go]"); if (g){ go(g.dataset.go); return; }
   const a = e.target.closest("[data-act]"); if (!a) return;
@@ -1598,6 +1775,11 @@ document.addEventListener("click", e => {
     case "rubSet": { ui.rub[a.dataset.k] = +a.dataset.n; render(); break; }
     case "rubSave": { const vals = RUBRIC.map(r=>ui.rub[r[0]]||0); if (vals.some(v=>!v)){ toast("Score all ten criteria first"); break; } state.rubric.push({date:localDate(), s:{...ui.rub}}); ui.rub = {}; save(); toast("Self-review saved"); render(); break; }
     case "exDone": { const d = dstat(); d.exDone = d.exDone||{}; if (!d.exDone[a.dataset.i]){ d.exDone[a.dataset.i] = true; bump("exercise"); award(10, EXERCISES[+a.dataset.i].name); } render(); break; }
+    case "setTab": ui.setTab = a.dataset.k; render(); { const b = document.getElementById("st-"+a.dataset.k); if (b) b.focus(); } break;
+    case "setOpt": { const k = a.dataset.k, v = a.dataset.v; state.settings[k] = k==="textSize" ? +v : v; state.settings = cleanSettings(state.settings); save(); render(); const b = document.querySelector(`[data-act="setOpt"][data-k="${k}"][data-v="${v}"]`); if (b) b.focus(); announce(`${k==="textSize"?"Text size":"Setting"} changed to ${a.textContent.trim()}`); break; }
+    case "resetDisplay": { const d = DEFAULT().settings; ["theme","contrast","skin","layout","density","textSize","font","spacing","targets","focus","motion"].forEach(k => state.settings[k] = d[k]); save(); render(); announce("Look and reading settings reset"); break; }
+    case "skipMain": e.preventDefault(); { const m = $("#view"); m.focus(); } break;
+    case "noop": e.preventDefault(); break;
     case "toggleSetting": state.settings[a.dataset.k] = a.checked; save(); break;
     case "rpSend": { const t = (rp.answer||"").trim(); if (!t) { toast("Write or dictate your answer first"); break; } rp.msgs.push({role:"user", content:t}); rp.answer=""; rpCall(); break; }
     case "rpDebrief": rpDebrief(); break;
@@ -1640,6 +1822,7 @@ document.addEventListener("change", e => {
   const t = e.target;
   if (t.dataset.actChange==="liveBrief"){ ui.live.briefId = t.value; render(); }
   if (t.dataset.spbind==="ctx") ui.sp.ctx = t.value;
+  if (t.dataset.setsel){ state.settings[t.dataset.setsel] = t.value; state.settings = cleanSettings(state.settings); save(); applyDisplay(); }
   if (t.dataset.sbind==="goal"){ state.settings.goal = +t.value || 50; save(); }
   if (t.id==="importFile" && t.files && t.files[0]){ const fr = new FileReader(); fr.onload = () => { try { const data = JSON.parse(fr.result); if (!data || typeof data!=="object" || !data.settings) throw 0; state = normalise(data); save(); if (store.mode==="cloud") flush(); toast("Data imported"); render(); } catch(e){ toast("That file isn't a Plainspoken export"); } }; fr.readAsText(t.files[0]); }
 });
@@ -1656,9 +1839,9 @@ function drawCodes(){
 /* ---------- boot ---------- */
 (function boot(){
   state = normalise(loadLocal());
-  const v = location.hash.slice(1); ui.view = VIEWS.includes(v) ? v : "today";
-  render(); drawCodes();
-  if (window.matchMedia) matchMedia("(prefers-color-scheme: dark)").addEventListener?.("change", drawCodes);
+  const v = location.hash.slice(1); ui.view = VIEWS.includes(v) ? v : (VIEWS.includes(state.settings.startView) ? state.settings.startView : "today");
+  applyDisplay(); render(); drawCodes();
+  if (window.matchMedia) ["(prefers-color-scheme: dark)","(prefers-contrast: more)","(prefers-reduced-motion: reduce)"].forEach(q => { try { matchMedia(q).addEventListener("change", () => applyDisplay()); } catch(e){} });
   initStore();
   if (IN_TEAMS) initTeams();
 })();
@@ -1668,7 +1851,7 @@ function initTeams(){
   sc.onload = async () => {
     try {
       const t = window.microsoftTeams; await t.app.initialize();
-      const apply = th => { document.documentElement.setAttribute("data-theme", th === "default" ? "light" : "dark"); drawCodes(); };
+      const apply = th => { TEAMS_THEME = th || "default"; applyDisplay(); };
       try { const ctx = await t.app.getContext(); apply(ctx.app && ctx.app.theme || "default"); } catch(e){}
       try { t.app.registerOnThemeChangeHandler(apply); } catch(e){}
       try { t.app.notifySuccess(); } catch(e){}
