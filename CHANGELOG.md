@@ -7,6 +7,7 @@
 - Five new frameworks; two new commendations (Well rounded, Good colleague); a new daily cue.
 - Source: adapted from the author's own communication course guide, written in a personal capacity. Lesson and course titles renamed (D13). Work-account metadata in the source file was not carried into the repo (D15).
 - Quick-check options are shown in a shuffled order so answers cannot be guessed by position (D17).
+- Build: stamps now come from the last commit that changed the app, so CI rebuilds match (D18); page metadata licence corrected (D19).
 - Fixes: a hard-coded version label (D14); wide tables and five tabs caused sideways scrolling on phones (D16).
 
 ## 2.4 (28 Oct 2026)

@@ -70,4 +70,7 @@ ok(/\.card,details,\.table-wrap\{min-width:0;max-width:100%\}/.test(app) && /@me
 const qPos = (() => { try { const f = js.match(/function rng\(seed\)\{[^\n]*\n/)[0] + js.match(/function qOrder\(id, i\)\{[^\n]*\n/)[0]; const ctx = {}; vm.runInNewContext(f + "this.qOrder = qOrder;", ctx); return SK.flatMap(k => k.quiz.map((q, i) => ctx.qOrder(k.id, i).indexOf(q.a))); } catch (e) { return []; } })();
 const posMax = Math.max(0, ...[0, 1, 2, 3].map(n => qPos.filter(x => x === n).length));
 ok(qPos.length === 39 && qPos.every(x => x >= 0) && posMax <= 39 * 0.4, "C35 quick-check answers are spread across positions A to D, not guessable by position (defect D17) (most common position: " + posMax + " of 39)");
+ok(/"--format=%h", "--", "app.html"/.test(rd("build.py")) && /"--format=%cs", "--", "app.html"/.test(rd("build.py")) && !/rev-parse", "--short", "HEAD"|date=\{datetime\.date\.today/.test(rd("build.py")) && /fetch-depth: 0/.test(rd("repo-config/github/workflows/check.yml")), "C36 build stamps come from the last commit that changed app.html, so CI rebuilds match (defect D18)");
+const metaCopy = (idx.match(/<meta name="copyright" content="([^"]*)"/) || [])[1] || "";
+ok(/PolyForm Noncommercial 1\.0\.0/.test(metaCopy) && /CC BY-NC 4\.0/.test(metaCopy) && !/Apache|MIT|CC BY 4\.0/.test(idx.slice(0, 4000)), "C37 page metadata states the current licences (defect D19)");
 process.exitCode = fail ? 1 : 0; console.log(fail ? `${fail} check(s) failed` : "All checks passed");

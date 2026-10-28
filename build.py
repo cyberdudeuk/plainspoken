@@ -6,10 +6,15 @@ import subprocess, datetime, re
 from pathlib import Path
 root = Path(__file__).parent
 body = (root / "app.html").read_text(encoding="utf-8")
-try:
-    commit = subprocess.check_output(["git", "-C", str(root), "rev-parse", "--short", "HEAD"], text=True).strip()
-except Exception:
-    commit = "unreleased"
+# Stamp the last commit that changed app.html, and its date, so a rebuild in CI or on another
+# day gives the same output (defect D18). Committing index.html never changes these values.
+def git(*args):
+    try:
+        return subprocess.check_output(["git", "-C", str(root), *args], text=True, stderr=subprocess.DEVNULL).strip()
+    except Exception:
+        return ""
+commit = git("log", "-1", "--format=%h", "--", "app.html") or "unreleased"
+built = git("log", "-1", "--format=%cs", "--", "app.html") or datetime.date.today().isoformat()
 body = body.replace("__COMMIT__", commit)
 version = re.search(r'const VERSION = "([\d.]+)"', body).group(1)
 url = "https://cyberdudeuk.github.io/plainspoken/"
@@ -18,11 +23,11 @@ head = f'''<!doctype html><html lang="en-GB"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="description" content="{desc}">
 <meta name="author" content="Emanuel Silva">
-<meta name="copyright" content="© 2026 Emanuel Silva. Code Apache-2.0; content CC BY 4.0.">
+<meta name="copyright" content="© 2026 Emanuel Silva. Code PolyForm Noncommercial 1.0.0; content CC BY-NC 4.0.">
 <link rel="license" href="LICENSE">
 <meta name="application-name" content="Plainspoken">
 <meta name="generator" content="build.py; app v{version}; commit {commit}">
-<meta name="build" content="version={version}; date={datetime.date.today().isoformat()}; commit={commit}">
+<meta name="build" content="version={version}; date={built}; commit={commit}">
 <meta name="color-scheme" content="light dark">
 <meta name="theme-color" content="#0b6f5a" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0d1513" media="(prefers-color-scheme: dark)">
