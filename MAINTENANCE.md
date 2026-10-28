@@ -37,3 +37,8 @@ How Plainspoken is operated and kept healthy. Owner: Emanuel Silva (@cyberdudeuk
 ## Committing changes
 
 Use `tools/commit.sh "Message"`. It commits your source changes first, then rebuilds `index.html` and commits it, so the page's build stamp names the source commit and the CI "index.html is current" step passes (defect D23). Push both commits together.
+
+
+## Dependabot pull requests
+
+Dependabot opens pull requests for GitHub Actions and npm updates. Merge one at a time: wait for both the `check` and `ui` jobs to pass, then use "Update branch" on the next one before merging. Read the release notes for major versions first. GitHub configuration lives only in `.github` (defect D24); there is no second copy to keep in step.

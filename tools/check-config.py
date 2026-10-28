@@ -1,8 +1,10 @@
-"""C27: every YAML file in repo-config/github parses, each workflow has jobs with steps that
+"""C27: every YAML file in .github (or the repo-config seed) parses, each workflow has jobs with steps that
 use or run something, and issue forms have a name, description and body. (Defect D12.)"""
 import glob, sys, yaml
 fail = 0
-for f in sorted(glob.glob("repo-config/github/**/*.yml", recursive=True)):
+import os
+base = ".github" if os.path.isdir(".github/workflows") else "repo-config/github"
+for f in sorted(glob.glob(base + "/**/*.yml", recursive=True)):
     try:
         d = yaml.safe_load(open(f))
         assert isinstance(d, dict), "not a mapping"

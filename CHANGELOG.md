@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.6 maintenance update (28 Oct 2026)
+- Dependencies: ajv 8.20.0, actions/checkout v7, actions/setup-node v7, Node.js 24 in CI (Node.js 20 reached end of life).
+- GitHub configuration now lives only in `.github`, so Dependabot updates can no longer be reverted by a publish (D24, D25).
+
 ## 2.6 (28 Oct 2026)
 - **Settings page** (gear button in the header), in five tabs: Look, Reading and motion, You, Practice, Data. Changes apply straight away and sync with your data.
 - **Look:** light, dark or match your device; high contrast (or follow your device's contrast setting); five colour themes (Evergreen, Ocean, Heather, Ember, Graphite); comfortable or wide layout on large screens; comfortable or compact spacing.

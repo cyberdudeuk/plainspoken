@@ -3,6 +3,8 @@
 const fs = require("fs"), vm = require("vm"), path = require("path");
 const rd = f => fs.readFileSync(path.join(__dirname, f), "utf8");
 const app = rd("app.html"), idx = rd("index.html");
+// GitHub configuration lives in .github (single source of truth since D24); repo-config/github is only a seed for copies without .github.
+const ghc = p => fs.existsSync(path.join(__dirname, ".github", p)) ? ".github/" + p : "repo-config/github/" + p;
 let fail = 0; const ok = (c, m) => { console.log((c ? "PASS " : "FAIL ") + m); if (!c) fail++; };
 const js = [...app.matchAll(/<script>([\s\S]*?)<\/script>/g)].map(m => m[1]).pop();
 try { new vm.Script(js); ok(true, "C1 script parses"); } catch (e) { ok(false, "C1 script parses: " + e.message); }
@@ -45,7 +47,7 @@ const exists = f => fs.existsSync(path.join(__dirname, f));
 ok(exists("vendor/teams-js-2.58.0.min.js") && exists("vendor/LICENSE-teams-js.txt") && /const TEAMS_JS = "vendor\/teams-js-2\.58\.0\.min\.js"/.test(app) && /const IN_TEAMS = !IN_CLAUDE && HOST_PARAM === "teams"/.test(app) && !/<script src="vendor\//.test(app) && /if \(IN_TEAMS\) initTeams\(\)/.test(app), "C22 TeamsJS shipped with its licence and loaded only inside Teams, never in Claude");
 ok(["teams/manifest.json","teams/manifest.tab-only.json","teams/declarativeAgent.json","teams/agent-instructions.md","tools/validate-teams.js","tools/package-teams.py","tools/schemas/teams-manifest-1.22.schema.json","tools/schemas/declarative-agent-1.6.schema.json"].every(exists), "C23 Teams and Copilot package sources, schemas and tooling present");
 const pub = exists("publish.sh") ? rd("publish.sh") : "";
-ok(["repo-config/github/workflows/check.yml","repo-config/github/workflows/maintenance.yml","repo-config/github/workflows/release.yml","repo-config/github/dependabot.yml","repo-config/github/CODEOWNERS","repo-config/github/PULL_REQUEST_TEMPLATE.md","repo-config/github/ISSUE_TEMPLATE/bug.yml","tools/check-links.js","tools/check-config.py"].every(exists) && /cp -R repo-config\/github\/\. \.github\//.test(pub) && /branches\/main\/protection/.test(pub), "C24 maintenance automation present and installed by publish.sh (checks, weekly health, release, Dependabot, templates, branch protection)");
+ok([ghc("workflows/check.yml"),ghc("workflows/maintenance.yml"),ghc("workflows/release.yml"),ghc("dependabot.yml"),ghc("CODEOWNERS"),ghc("PULL_REQUEST_TEMPLATE.md"),ghc("ISSUE_TEMPLATE/bug.yml"),"tools/check-links.js","tools/check-config.py"].every(exists) && /cp -R repo-config\/github\/\. \.github\//.test(pub) && /branches\/main\/protection/.test(pub), "C24 maintenance automation present and installed by publish.sh (checks, weekly health, release, Dependabot, templates, branch protection)");
 ok(["MAINTENANCE.md","DEPLOYMENT-M365.md","SECURITY.md","CONTRIBUTING.md","TERMS.md"].every(exists), "C25 operating documents present");
 ok(!/des\.mod\.uk\/wp-content|civilservicecodecomplaints/.test(app) && /mail\.civilservant\.org\.uk\/library\/2018-success_profiles\/CS_Behaviours_2018\.pdf/.test(app), "C26 known-dead source links replaced (defect D10)");
 // v2.5: skills module, Working relationships, Facilitator mode
@@ -70,10 +72,10 @@ ok(/\.card,details,\.table-wrap\{min-width:0;max-width:100%\}/.test(app) && /@me
 const qPos = (() => { try { const f = js.match(/function rng\(seed\)\{[^\n]*\n/)[0] + js.match(/function qOrder\(id, i\)\{[^\n]*\n/)[0]; const ctx = {}; vm.runInNewContext(f + "this.qOrder = qOrder;", ctx); return SK.flatMap(k => k.quiz.map((q, i) => ctx.qOrder(k.id, i).indexOf(q.a))); } catch (e) { return []; } })();
 const posMax = Math.max(0, ...[0, 1, 2, 3].map(n => qPos.filter(x => x === n).length));
 ok(qPos.length === 39 && qPos.every(x => x >= 0) && posMax <= 39 * 0.4, "C35 quick-check answers are spread across positions A to D, not guessable by position (defect D17) (most common position: " + posMax + " of 39)");
-ok(/"--format=%h", "--", "app.html"/.test(rd("build.py")) && /"--format=%cs", "--", "app.html"/.test(rd("build.py")) && !/rev-parse", "--short", "HEAD"|date=\{datetime\.date\.today/.test(rd("build.py")) && /fetch-depth: 0/.test(rd("repo-config/github/workflows/check.yml")), "C36 build stamps come from the last commit that changed app.html, so CI rebuilds match (defect D18)");
+ok(/"--format=%h", "--", "app.html"/.test(rd("build.py")) && /"--format=%cs", "--", "app.html"/.test(rd("build.py")) && !/rev-parse", "--short", "HEAD"|date=\{datetime\.date\.today/.test(rd("build.py")) && /fetch-depth: 0/.test(rd(ghc("workflows/check.yml"))), "C36 build stamps come from the last commit that changed app.html, so CI rebuilds match (defect D18)");
 const metaCopy = (idx.match(/<meta name="copyright" content="([^"]*)"/) || [])[1] || "";
 ok(/PolyForm Noncommercial 1\.0\.0/.test(metaCopy) && /CC BY-NC 4\.0/.test(metaCopy) && !/Apache|MIT|CC BY 4\.0/.test(idx.slice(0, 4000)), "C37 page metadata states the current licences (defect D19)");
-ok(/gh release upload "\$GITHUB_REF_NAME" dist\/\*\.zip --clobber/.test(rd("repo-config/github/workflows/release.yml")), "C38 release workflow refreshes an existing release instead of failing when a tag is re-pushed (defect D20)");
+ok(/gh release upload "\$GITHUB_REF_NAME" dist\/\*\.zip --clobber/.test(rd(ghc("workflows/release.yml"))), "C38 release workflow refreshes an existing release instead of failing when a tag is re-pushed (defect D20)");
 // v2.6: display settings, accessibility and all-screen layout
 const evalBlock = names => { const ctx = {}; let src = ""; for (const n of names){ const m = js.match(new RegExp("(?:const|function) " + n + "\\b[\\s\\S]*?\\n(?=const |function |let |/\\*)")); if (!m) return null; src += m[0] + "\n"; } try { vm.runInNewContext(src + names.map(n => `this.${n} = ${n};`).join(""), ctx); return ctx; } catch (e) { return null; } };
 const D = evalBlock(["pad", "localDate", "DEFAULT", "SKINS", "BASES", "SETTING_OPTS", "cleanSettings"]);
@@ -104,4 +106,8 @@ ok(/rec\.lang = state\.settings\.lang \|\| "en-GB"/.test(js) && /softFillers\(\)
 ok(/\.colophon,\.transcript,\.card p,\.card li,td\{overflow-wrap:anywhere\}/.test(app), "C45 long links and words wrap instead of widening the page at large text sizes (defect D22)");
 ok(/document\.addEventListener\("keydown", e => \{\n  const t = e\.target; if \(!t \|\| t\.getAttribute\("role"\) !== "tab"/.test(js) && /"ArrowLeft","ArrowRight","Home","End"/.test(js), "C46 arrow, Home and End keys move between tabs in every tab strip (ARIA tabs pattern)");
 ok(fs.existsSync(path.join(__dirname, "tools/commit.sh")) && /git reset -q index\.html[\s\S]*git commit -q "\$@"[\s\S]*python3 build\.py[\s\S]*git add index\.html/.test(rd("tools/commit.sh")) && /tools\/commit\.sh/.test(rd("MAINTENANCE.md")), "C47 sources are committed before index.html is rebuilt, so the build stamp names the source commit (defect D23)");
+const wf = ["check.yml", "maintenance.yml", "release.yml"].map(f => rd(ghc("workflows/" + f))).join("\n");
+const majors = re => [...wf.matchAll(re)].map(m => +m[1]);
+const nodes = [...wf.matchAll(/node-version: (\d+)/g)].map(m => +m[1]);
+ok(majors(/actions\/checkout@v(\d+)/g).every(v => v >= 7) && majors(/actions\/setup-node@v(\d+)/g).every(v => v >= 7) && nodes.length >= 3 && nodes.every(v => v >= 22) && /^repo-config\/$/m.test(rd(".gitignore")), "C48 one source for GitHub configuration (defect D24); workflows use current action majors and a supported Node.js LTS (defect D25)");
 process.exitCode = fail ? 1 : 0; console.log(fail ? `${fail} check(s) failed` : "All checks passed");

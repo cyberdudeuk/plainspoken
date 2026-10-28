@@ -7,7 +7,7 @@ REPO=cyberdudeuk/plainspoken
 VERSION=$(sed -n 's/.*const VERSION = "\([0-9.]*\)".*/\1/p' app.html | head -1)
 
 echo "1/8 Install GitHub configuration (workflows, Dependabot, templates, CODEOWNERS)"
-mkdir -p .github && cp -R repo-config/github/. .github/
+if [ ! -d .github/workflows ]; then mkdir -p .github && cp -R repo-config/github/. .github/; fi
 
 echo "2/8 Install validator dependencies and run every check"
 npm ci --silent || npm install --silent
