@@ -5,3 +5,5 @@ Report vulnerabilities privately through GitHub: **Security → Report a vulnera
 Scope: the web app (`app.html`, `index.html`), the Teams and Copilot package (`teams/`), and the build and check tooling. Expect an acknowledgement within 7 days. This is a personal, volunteer-maintained project with no service level.
 
 Design notes: no server, no accounts, no analytics, no cookies. Data stays in the browser (GitHub Pages), in a private per-user store (Claude version) or in the user's own Microsoft 365 context (Copilot agent). Third-party code is pinned (cdnjs libraries; TeamsJS 2.58.0 shipped in `vendor/`) and updated through Dependabot.
+
+Automated checks: CodeQL scans the code and workflows on every push and pull request and weekly; dependency review blocks a pull request that adds a dependency with a known moderate or worse vulnerability; OpenSSF Scorecard runs weekly.

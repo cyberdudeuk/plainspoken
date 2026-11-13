@@ -11,3 +11,5 @@ Working rules:
 - Every defect fix comes with a check that fails without the fix, recorded in CHECKS.md. The check suite never shrinks.
 - No confidential information, personal data, security-marked material or wording that implies affiliation with any government body.
 - Plain English, WCAG 2.2 AA, both light and dark themes, and phone width (390px) without sideways scrolling.
+
+Everyone taking part follows the [code of conduct](CODE_OF_CONDUCT.md).
