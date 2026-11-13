@@ -8,6 +8,9 @@ How Plainspoken is operated and kept healthy. Owner: Emanuel Silva (@cyberdudeuk
 | --- | --- | --- | --- |
 | Every push and pull request | Project checks (C1 onwards), Teams/Copilot schema validation (T1 onwards), rebuild proves `index.html` matches `app.html`, Teams packages build | `.github/workflows/check.yml` | Yes |
 | Weekly (Monday 06:17 UTC) | Broken source links; rules staleness (over 90 days); live site responds | `.github/workflows/maintenance.yml` opens or updates one issue labelled `maintenance` | Yes |
+| Every pull request | Dependency review: blocks a new dependency with a known moderate or worse vulnerability | `.github/workflows/dependency-review.yml` | Yes |
+| Every push, pull request and weekly | CodeQL code scanning (JavaScript, Python, workflows); results in Security, then Code scanning | `.github/workflows/codeql.yml` | Yes |
+| Weekly (Monday 06:37 UTC) | OpenSSF Scorecard: how the repository is run (pinning, permissions, branch protection) | `.github/workflows/scorecard.yml` | Yes |
 | Weekly | Dependency and GitHub Action updates | Dependabot pull requests; merge only when checks pass | Yes (PRs) |
 | Monthly | Review open issues, Dependabot PRs and the maintenance issue; re-run a smoke test on a phone | Manual | No |
 | Quarterly | Re-check the public-sector rules (external speaking, pre-election, Osmotherly, Success Profiles); update `RULES_CHECKED` in `app.html`; review accessibility; test in Teams desktop, web and mobile | Manual; the weekly check opens an issue when it's overdue | Reminder only |

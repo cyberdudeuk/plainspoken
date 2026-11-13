@@ -4,6 +4,13 @@ updates:
     directory: /
     schedule:
       interval: weekly
+    # CodeQL's init, analyze and upload-sarif steps must run the same version. Bumped
+    # one at a time they fail with "Loaded a configuration file for version X, but running
+    # version Y" (seen on 13 Nov 2026). This group moves them in one pull request.
+    # Group copied from cyberdudeuk/dcat-ap-uk.
+    groups:
+      codeql:
+        patterns: ["github/codeql-action*"]
   - package-ecosystem: npm
     directory: /
     schedule:
