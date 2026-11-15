@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased (15 Nov 2026)
+- index.html rebuilt so its build stamp names a commit on main again; pull requests that change app.html are merged with a merge commit (D28).
 - The QR code and barcode libraries are loaded with integrity hashes, so the browser refuses a changed copy (D27, C50). JsBarcode 3.11.6.
 - Checks now lint the Python, the scripts and the page's own script, and fail on any finding (D26, C49). Part of applying the secure development standard to every project. A placeholder score that always came out as 0 and two unused functions found by the linter are removed or marked; nothing you see changes.
 

@@ -13,3 +13,7 @@ Working rules:
 - Plain English, WCAG 2.2 AA, both light and dark themes, and phone width (390px) without sideways scrolling.
 
 Everyone taking part follows the [code of conduct](CODE_OF_CONDUCT.md).
+
+## Merging
+
+Merge a pull request that changes `app.html` with a **merge commit**, not squash or rebase. `index.html` carries a build stamp naming the commit that last changed `app.html` (D23); squash and rebase replace that commit, so the stamp on main would point at a commit that no longer exists and the rebuild check fails (D28).
