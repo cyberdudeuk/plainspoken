@@ -8,7 +8,7 @@ Loaded from cdnjs: `qrcodejs/1.0.0/qrcode.min.js`.
 
 ## JsBarcode
 Copyright (c) 2016 Johan Lindell (johan@lindell.me). MIT licence. https://github.com/lindell/JsBarcode
-Loaded from cdnjs: `jsbarcode/3.11.5/JsBarcode.all.min.js`.
+Loaded from cdnjs: `jsbarcode/3.11.6/JsBarcode.all.min.js`, with a sha384 integrity hash so the browser refuses a changed file (D27).
 
 > MIT licence text: Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions: The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software. THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND.
 
