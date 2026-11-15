@@ -339,7 +339,7 @@ details[open] summary{margin-bottom:8px}
 /* ---------- constants and content ---------- */
 const DOC_URL = "https://claude.ai/artifact/97sLuwHx6tT5Bwp4skDiWL";
 const RULES_CHECKED = "2026-10-28";
-const LINKS_CHECKED = "2026-10-28";
+const _LINKS_CHECKED = "2026-10-28";  // record of the last full link review; tools/check-links.js does the checking
 const VERSION = "2.6";
 const APP = "Plainspoken";
 const BUILD = {version:"2.6", date:"2026-10-28", commit:"__COMMIT__", runtime:"claude.ai artifact contract 0.2.92 / GitHub Pages"};
@@ -762,7 +762,7 @@ function phase(){ const w = weekNo(); return PHASES.find(p => w>=p.from && w<=p.
 function dayRec(d=localDate()){ return state.routine[d] || {b:[false,false,false,false,false]}; }
 function dayDone(d){ const r = state.routine[d]; return !!(r && r.b.every(Boolean)); }
 function dayPart(d){ const r = state.routine[d]; return !!(r && r.b.some(Boolean)); }
-function last7(){ let n=0; const d=new Date(); for (let i=0;i<7;i++){ if (dayDone(localDate(d))) n++; d.setDate(d.getDate()-1);} return n; }
+function _last7(){ let n=0; const d=new Date(); for (let i=0;i<7;i++){ if (dayDone(localDate(d))) n++; d.setDate(d.getDate()-1);} return n; }
 function paceClass(w){ const {paceLow:lo,paceHigh:hi} = state.settings; if (!w) return ""; if (w>=lo && w<=hi) return "good"; if (w>=lo-20 && w<=hi+20) return "warn"; return "bad"; }
 function fillClass(f){ if (f==null) return ""; return f<2 ? "good" : f<=5 ? "warn" : "bad"; }
 
@@ -956,7 +956,7 @@ function goalRing(x, g){ const p = Math.min(1.12, x/g), cx=60, cy=62, R=48; cons
   <line x1="${cx}" y1="${cy}" x2="${nx}" y2="${ny}" stroke="var(--ink)" stroke-width="2.2" stroke-linecap="round"/><circle cx="${cx}" cy="${cy}" r="4.5" fill="var(--ink)"/>
   <text x="${cx}" y="86" text-anchor="middle" style="font-family:var(--mono);font-weight:700" font-size="13" fill="var(--ink)">${x}/${g}</text></svg>`; }
 function weekXP(offset){ const now = new Date(); const mon = new Date(now); mon.setDate(now.getDate() - ((now.getDay()+6)%7) - offset*7); let t=0; for (let i=0;i<7;i++){ const d = new Date(mon); d.setDate(mon.getDate()+i); t += (state.days[localDate(d)]?.xp||0); } return t; }
-function weekDone(wk){ const s = new Date(state.settings.start+"T00:00:00"); let n=0; for (let i=0;i<7;i++){ const d = new Date(s); d.setDate(s.getDate()+(wk-1)*7+i); if (dayDone(localDate(d))) n++; } return n>=5; }
+function _weekDone(wk){ const s = new Date(state.settings.start+"T00:00:00"); let n=0; for (let i=0;i<7;i++){ const d = new Date(s); d.setDate(s.getDate()+(wk-1)*7+i); if (dayDone(localDate(d))) n++; } return n>=5; }
 function gatePassed(u){ return state.checkpoints.some(c => c.gate && c.week>=u.from && c.week<=u.to); }
 function weekDays(wk){ const st = new Date(state.settings.start+"T00:00:00"); let n=0; for (let i=0;i<7;i++){ const d = new Date(st); d.setDate(st.getDate()+(wk-1)*7+i); if (dayDone(localDate(d))) n++; else if (dayPart(localDate(d))) n+=0.4; } return n; }
 function pathView(full){
@@ -1323,7 +1323,7 @@ function livePace(){ const now = Date.now(); const w = ui.live.windowWords.filte
 
 function league(){
   const rows = [["This week", weekXP(0), true], ["Last week", weekXP(1)], ["2 weeks ago", weekXP(2)], ["3 weeks ago", weekXP(3)]];
-  const best = Object.values(state.days).reduce((m,d)=>m,0); const max = Math.max(1, ...rows.map(r=>r[1]));
+  const max = Math.max(1, ...rows.map(r=>r[1]));
   const lead = rows[0][1] - rows[1][1];
   return `<p class="small muted">Resonance earned each week, Monday to Sunday.</p>` + rows.map(r=>`<div class="lrow ${r[2]?"me":""}"><span>${r[0]}</span><div class="xpbar"><i style="width:${Math.round(r[1]/max*100)}%"></i></div><b style="font-family:var(--mono);text-align:right">${r[1]}</b></div>`).join("") +
    `<p class="small">${lead>0 ? `You're <b>${lead} resonance ahead</b> of last week.` : lead===0 ? "Level with last week." : `<b>${-lead} resonance</b> to beat last week.`} Competing with your past self keeps it about your own progress.</p>`;
