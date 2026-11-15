@@ -112,4 +112,6 @@ const nodes = [...wf.matchAll(/node-version: (\d+)/g)].map(m => +m[1]);
 ok(majors(/actions\/checkout@v(\d+)/g).every(v => v >= 7) && majors(/actions\/setup-node@v(\d+)/g).every(v => v >= 7) && nodes.length >= 3 && nodes.every(v => v >= 22) && /^repo-config\/$/m.test(rd(".gitignore")), "C48 one source for GitHub configuration (defect D24); workflows use current action majors and a supported Node.js LTS (defect D25)");
 { const chk = rd(".github/workflows/check.yml"), pkg = JSON.parse(rd("package.json"));
   ok(/ruff check \./.test(chk) && /npx eslint \./.test(chk) && /node tools\/lint-page\.js/.test(chk) && exists("ruff.toml") && exists("eslint.config.mjs") && pkg.devDependencies && pkg.devDependencies.eslint, "C49 CI lints the Python, the scripts and the page script, and fails on any finding (defect D26)"); }
+{ const ext = [...app.matchAll(/<script[^>]+src="(https?:)?\/\/[^"]*"[^>]*>/g)].map(m => m[0]);
+  ok(ext.length > 0 && ext.every(t => /integrity="sha(256|384|512)-[A-Za-z0-9+/=]+"/.test(t) && /crossorigin="anonymous"/.test(t)), "C50 every script loaded from another host carries an integrity hash (defect D27)"); }
 process.exitCode = fail ? 1 : 0; console.log(fail ? `${fail} check(s) failed` : "All checks passed");
