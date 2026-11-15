@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased (15 Nov 2026)
+- Checks now lint the Python, the scripts and the page's own script, and fail on any finding (D26, C49). Part of applying the secure development standard to every project. A placeholder score that always came out as 0 and two unused functions found by the linter are removed or marked; nothing you see changes.
+
 ## 2.6 maintenance update (28 Oct 2026)
 - Dependencies: ajv 8.20.0, actions/checkout v7, actions/setup-node v7, Node.js 24 in CI (Node.js 20 reached end of life).
 - GitHub configuration now lives only in `.github`, so Dependabot updates can no longer be reverted by a publish (D24, D25).
