@@ -1,0 +1,18 @@
+cff-version: 1.2.0
+message: If you use Plainspoken, please cite it as below.
+type: software
+title: "Plainspoken: a phone-first speaking coach for work"
+authors:
+  - given-names: Emanuel
+    family-names: Silva
+    orcid: "https://orcid.org/0009-0000-5880-7219"
+license: PolyForm-Noncommercial-1.0.0
+version: 2.6.0
+repository-code: https://github.com/cyberdudeuk/plainspoken
+url: https://cyberdudeuk.github.io/plainspoken/
+abstract: "A phone-first speaking coach for anyone who speaks at work, with situations drawn from public sector settings."
+keywords:
+  - communication-skills
+  - speaking
+  - pwa
+  - public-sector
