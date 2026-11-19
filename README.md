@@ -10,6 +10,12 @@ A phone-first speaking coach for anyone who speaks at work, with situations draw
 
 © 2026 Emanuel Silva. Developed in a personal capacity, outside working hours. An independent project: not affiliated with, endorsed by or produced on behalf of any government, public body or other organisation it mentions.
 
+## Quick start
+
+1. Open the [live version](https://cyberdudeuk.github.io/plainspoken/) on your phone and add it to your home screen.
+2. Go to **Today** and run the 20-minute routine; it shows this week's phase and three cues.
+3. Before your next meeting or talk, open **Prep**, pick the situation and read its one-page brief; on the day, use the cue card in **Live**.
+
 ## What it does
 
 | Area | Features |
