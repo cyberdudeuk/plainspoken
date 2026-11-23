@@ -16,3 +16,7 @@ keywords:
   - speaking
   - pwa
   - public-sector
+identifiers:
+  - type: doi
+    value: 10.5281/zenodo.24243513
+    description: "Concept DOI on Zenodo: resolves to the latest archived release"
